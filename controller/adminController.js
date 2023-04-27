@@ -169,5 +169,12 @@ res.redirect('/admin')
       })
 
 
+    },
+
+    logout:(req,res)=>{
+
+        req.session.admin = false
+        req.session.admindata = null
+        res.redirect('/admin/login')
     }
 }

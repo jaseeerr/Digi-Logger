@@ -27,6 +27,9 @@ router.get('/students',adminAuth.adminAuthentication,adminController.students)
 /* GET more info. */
 router.get('/details/:id',adminAuth.adminAuthentication,adminController.details)
 
+/* GET logout */
+router.get('/logout',adminAuth.adminAuthentication,adminController.logout)
+
 
 
 ///////////////
