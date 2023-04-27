@@ -8,7 +8,15 @@
             <h2 class="content-title card-title text-center">Dashboard </h2>
             <p id="device-info"></p>
             <p>Whole data about your attendance here</p>
-            <p id="device-model"></p>
+            <ul id="device-info">
+                <li>Browser Name: <span id="browser-name"></span></li>
+                <li>Browser Version: <span id="browser-version"></span></li>
+                <li>Operating System: <span id="os"></span></li>
+                <li>Device Model: <span id="device-model"></span></li>
+                <li>Device Type: <span id="device-type"></span></li>
+                <li>Screen Resolution: <span id="screen-resolution"></span></li>
+                <li>Language: <span id="language"></span></li>
+              </ul>
         </div>
         <div>
           <% if (signedin) { %>
@@ -148,27 +156,49 @@
 
 
 <script>
-    var deviceInfo = "User Agent: " + navigator.userAgent + "<br>" +
-                 "Screen Resolution: " + screen.width + "x" + screen.height + "<br>" +
-                 "Color Depth: " + screen.colorDepth + "<br>" +
-                 "Window Size: " + window.innerWidth + "x" + window.innerHeight + "<br>" +
-                 "Browser Cookies Enabled: " + navigator.cookieEnabled;
+      var browserName = "";
+    var browserVersion = "";
+    var os = "";
+    var deviceModel = "";
+    var deviceType = "";
+    var screenResolution = "";
+    var language = "";
 
-document.getElementById("device-info").innerHTML = deviceInfo;
+    // Get browser information
+    browserName = navigator.userAgent.split(" ")[0];
+    browserVersion = navigator.appVersion;
 
-var deviceModel = "";
-    var userAgent = navigator.userAgent;
+    // Get operating system information
+    if (navigator.appVersion.indexOf("Win") != -1) os = "Windows";
+    if (navigator.appVersion.indexOf("Mac") != -1) os = "MacOS";
+    if (navigator.appVersion.indexOf("X11") != -1) os = "UNIX";
+    if (navigator.appVersion.indexOf("Linux") != -1) os = "Linux";
 
-    // Regular expression to match device model number
+    // Get device model and type information
     var regex = /(?:\(|;)\s*([a-zA-Z0-9]+)\s*(?:\)|;)/;
-
-    var match = userAgent.match(regex);
+    var match = navigator.userAgent.match(regex);
 
     if (match) {
       deviceModel = match[1];
+      deviceType = "Mobile";
+    } else {
+      deviceType = "Desktop";
     }
 
+    // Get screen resolution information
+    screenResolution = window.screen.width + "x" + window.screen.height;
+
+    // Get language information
+    language = navigator.language;
+
+    // Update HTML with collected information
+    document.getElementById("browser-name").innerHTML = browserName;
+    document.getElementById("browser-version").innerHTML = browserVersion;
+    document.getElementById("os").innerHTML = os;
     document.getElementById("device-model").innerHTML = deviceModel;
+    document.getElementById("device-type").innerHTML = deviceType;
+    document.getElementById("screen-resolution").innerHTML = screenResolution;
+    document.getElementById("language").innerHTML = language;
 
 </script>
 
