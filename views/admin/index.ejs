@@ -20,20 +20,39 @@
                 <article class="card-body">
                     <h5 class="card-title">Today's Absentees</h5>
                     <div class="new-member-list">
-                        <% todays.forEach(element => { %>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <div class="d-flex align-items-center">
-                                    <img src="/stylesheets/assets-backend/imgs/dp.avif" alt="" class="avatar">
-                                    <div>
-                                        <h6><%=element.name %></h6>
-                                        <p class="text-muted font-xs">
-                                           <%=element.batch %>
-                                        </p>
+                        <% if (todays.length!=0) { %>
+                         
+                            <% todays.forEach(element => { %>
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <div class="d-flex align-items-center">
+                                        <img src="/stylesheets/assets-backend/imgs/dp.avif" alt="" class="avatar">
+                                        <div>
+                                            <h6><%=element.name %></h6>
+                                            <p class="text-muted font-xs">
+                                               <%=element.batch %>
+                                            </p>
+                                        </div>
                                     </div>
+                                    <a href="/admin/details/<%=element._id %>" class="btn btn-xs"><i class="material-icons md-add"></i> View</a>
                                 </div>
-                                <a href="/admin/details/<%=element._id %>" class="btn btn-xs"><i class="material-icons md-add"></i> View</a>
-                            </div>
-                        <% }) %>
+                            <% }) %>
+
+                            <% } else { %>
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <div class="d-flex align-items-center">
+                                        <img src="/stylesheets/assets-backend/imgs/dp.avif" alt="" class="avatar">
+                                        <div>
+                                            <h6><%=element.name %></h6>
+                                            <p class="text-muted font-xs">
+                                               <%=element.batch %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a href="/admin/details/<%=element._id %>" class="btn btn-xs"><i class="material-icons md-add"></i> View</a>
+                                </div>
+
+                        <% } %>
+                        
                        
                        
                     </div>

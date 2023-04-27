@@ -198,9 +198,12 @@ module.exports = {
 
             function isBeforeToday9AM(date) {
                 const now = new Date();
-                if (date.getDate() !== now.getDate()) { // check if the day is not the same as today's day
-                  return false;
+                if (date.getDate() !== now.getDate()) {
+                    console.log("false");
+                    // check if the day is not the same as today's day
+                  return true;
                 }
+                date
                 const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0, 0); // set time to today 9:00 AM
                 return date.getTime() < today9AM.getTime();
               }
@@ -218,7 +221,7 @@ module.exports = {
                  
                     let time  = last.getTime()
 
-                    
+                    console.log(last);
                    if(!isBeforeToday9AM(last))
                    {
                     console.log("KITTII");
@@ -234,7 +237,7 @@ module.exports = {
                 if(list.length==0)
                 {
                     console.log("LIST EMPTY");
-                    resolve()
+                    resolve(std)
                 }
 
 

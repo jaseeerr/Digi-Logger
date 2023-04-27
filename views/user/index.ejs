@@ -6,7 +6,9 @@
     <div class="content-header">
         <div class="">
             <h2 class="content-title card-title text-center">Dashboard </h2>
+            <p id="device-info"></p>
             <p>Whole data about your attendance here</p>
+            <p id="device-model"></p>
         </div>
         <div>
           <% if (signedin) { %>
@@ -145,7 +147,30 @@
 </section>
 
 
+<script>
+    var deviceInfo = "User Agent: " + navigator.userAgent + "<br>" +
+                 "Screen Resolution: " + screen.width + "x" + screen.height + "<br>" +
+                 "Color Depth: " + screen.colorDepth + "<br>" +
+                 "Window Size: " + window.innerWidth + "x" + window.innerHeight + "<br>" +
+                 "Browser Cookies Enabled: " + navigator.cookieEnabled;
 
+document.getElementById("device-info").innerHTML = deviceInfo;
+
+var deviceModel = "";
+    var userAgent = navigator.userAgent;
+
+    // Regular expression to match device model number
+    var regex = /(?:\(|;)\s*([a-zA-Z0-9]+)\s*(?:\)|;)/;
+
+    var match = userAgent.match(regex);
+
+    if (match) {
+      deviceModel = match[1];
+    }
+
+    document.getElementById("device-model").innerHTML = deviceModel;
+
+</script>
 
 
   <%- include('../partials/footer') %>
