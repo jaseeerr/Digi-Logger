@@ -7,6 +7,9 @@ module.exports = {
 
     homepage: (req, res) => {
 
+      let thisfp = req.session.thisfp
+      
+
       let noip = req.session.noip
       req.session.noip = false
       let ip = req.session.ip
@@ -31,7 +34,7 @@ module.exports = {
             percentage = Math.round(percentage)
 
             let absent = data1.absent
-            res.render('user/index', {userdata, signedin, late, percentage, absent,daily,overall,noip,ip});
+            res.render('user/index', {userdata, signedin, late, percentage, absent,daily,overall,noip,ip,thisfp});
 
           })
 
@@ -231,6 +234,14 @@ module.exports = {
 
     },
 
+    getfingerprint:(req,res)=>{
+
+      req.session.thisfp = req.body.visitorId
+      
+
+      res.redirect('/')
+
+    },
 
     logout:(req,res)=>{
 

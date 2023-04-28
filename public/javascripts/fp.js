@@ -27,6 +27,30 @@
     });
   }
 
+  //get fp
+  function getfingerprint(myString) {
+    // Wait for fpPromise to resolve and obtain the visitorId
+    fpPromise.then(fp => fp.get()).then(result => {
+      const visitorId = result.visitorId;
+      console.log("Visitor ID:", visitorId);
+
+      // Send the Ajax request with the visitorId and myString as data
+      $.ajax({
+        method: 'POST',
+        url: '/getfingerprint',
+        data: { message: myString, visitorId: visitorId },
+        success: function(response) {
+          console.log('Backend response:', response);
+          location.reload()
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.error('Ajax request failed:', textStatus, errorThrown);
+        }
+      });
+    });
+  }
+
+
   // Call the sendStringToBackend function with the string from the script tag
   const myString = 'Hello from the front end!';
 
@@ -37,4 +61,13 @@
     sendStringToBackend(myString);
     console.log("gotchhhaa")
     
+  }
+
+  let thisfp = document.getElementById('thisfp').value 
+  console.log("FINGERPRITT");
+  console.log(thisfp);
+
+  if(thisfp==0)
+  {
+    getfingerprint(myString)
   }

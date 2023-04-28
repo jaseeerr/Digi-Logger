@@ -30,6 +30,9 @@ router.get('/checkout',userAuth.userAuthentication,userController.checkout);
 /* POST link device page. */
 router.post('/linkdevice',userAuth.userAuthentication,userController.linkdevice);
 
+/* POST link device page. */
+router.post('/getfingerprint',userAuth.userAuthentication,userController.getfingerprint);
+
 /* GET logout. */
 router.get('/logout',userAuth.userAuthentication,userController.logout);
 
