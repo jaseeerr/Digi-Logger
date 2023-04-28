@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const userController = require("../controller/userConroller")
 const userAuth = require("../auth/userAuth")
+const network = require('../auth/network')
 
 
 /* GET login page. */
@@ -17,7 +18,7 @@ router.get('/signup',userController.signup);
 router.post('/signup_submit',userController.postsignup);
 
 
-router.use(userAuth.userAuthentication)
+router.use(network.adminAuthentication)
 /* GET home page. */
 router.get('/',userAuth.userAuthentication,userController.homepage); 
 
