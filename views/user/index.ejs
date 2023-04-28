@@ -93,8 +93,12 @@
         <div>
           <% if (signedin) { %>
             <a href="/checkout" class="btn btn-primary" style="background-color:#0e4d92;" ><i class="text-muted material-icons md-login"></i>CHECK-OUT</a>
-            <% } else if (!signedin && userdata.dev1==thisfp || userdata.dev2==thisfp) { %>
-              <a href="/checkin" class="btn btn-primary" style="background-color:#0e4d92;"><i class="text-muted material-icons md-login"></i>CHECK-IN</a>
+            <% } else if (!signedin && userdata.dev1 || userdata.dev2) { %>
+              <% if (userdata.dev1==thisfp || userdata.dev2==thisfp) { %>
+                
+                <a href="/checkin" class="btn btn-primary" style="background-color:#0e4d92;"><i class="text-muted material-icons md-login"></i>CHECK-IN</a>
+
+              <% } %>
               <% } %>
             
             <div id="clock"></div>
