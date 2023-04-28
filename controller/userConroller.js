@@ -8,6 +8,8 @@ module.exports = {
     homepage: (req, res) => {
 
       let noip = req.session.noip
+      req.session.noip = false
+      let ip = req.session.ip
 
         let userdata = req.session.userdata
         let signedin = req.session.signedin
@@ -29,7 +31,7 @@ module.exports = {
             percentage = Math.round(percentage)
 
             let absent = data1.absent
-            res.render('user/index', {userdata, signedin, late, percentage, absent,daily,overall,noip});
+            res.render('user/index', {userdata, signedin, late, percentage, absent,daily,overall,noip,ip});
 
           })
 
@@ -145,6 +147,8 @@ module.exports = {
       title = title.split("")
       title1 = title.slice(0,11)
       title1 = title1.join("")
+
+      req.session.ip = title1
 
 
       if (title1=="103.214.235" || title1=="115.246.245") {
