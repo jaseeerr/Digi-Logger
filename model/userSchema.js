@@ -7,6 +7,8 @@ const signupSchema = new Schema({
     batch:String,
     password:String,
     domain:String,
+    dev1:String,
+    dev2:String,
     block:Boolean
    
 })

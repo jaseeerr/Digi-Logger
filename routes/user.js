@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 const userController = require("../controller/userConroller")
 const userAuth = require("../auth/userAuth")
-const network = require('../auth/network')
 
 
 /* GET login page. */
@@ -26,6 +25,10 @@ router.get('/checkin',userAuth.userAuthentication,userController.checkin);
 
 /* GET check-out page. */
 router.get('/checkout',userAuth.userAuthentication,userController.checkout);
+
+
+/* POST link device page. */
+router.post('/linkdevice',userAuth.userAuthentication,userController.linkdevice);
 
 /* GET logout. */
 router.get('/logout',userAuth.userAuthentication,userController.logout);

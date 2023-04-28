@@ -183,6 +183,50 @@ module.exports = {
         })
     },
 
+    linkdevice:(id,dev)=>{
+        return new Promise((resolve, reject) => {
+            
+            User.findById(id).then((data)=>{
+
+
+                if(data.dev1==undefined)
+                {
+                    User.findByIdAndUpdate(id,{
+                        $set:{
+                            dev1:dev
+                        }
+                    }).then(()=>{
+                        User.findById(id).then((user)=>{
+                            resolve(user)
+                        })
+                        
+                    })
+                }
+                else if(data.dev2==undefined)
+                {
+                    User.findByIdAndUpdate(id,{
+                        $set:{
+                            dev2:dev
+                        }
+                    }).then(()=>{
+                        User.findById(id).then((user)=>{
+                            resolve(user)
+                        })
+                    })
+                }
+                else
+                {
+                    let linked = true
+                    resolve({linked})
+                }
+
+                
+
+            })
+            
+        })
+    },
+
     checklate:(id)=>{
         return new Promise((resolve, reject) => {
             Attendance.findOne({sid:id}).then((data)=>{

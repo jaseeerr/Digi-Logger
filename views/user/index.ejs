@@ -1,6 +1,80 @@
 <%- include('../partials/header') %>
 
+<style>
+    /* Disable the body content */
+    /* body {
+      pointer-events: none;
+    } */
 
+    /* Add the invisible overlay */
+    .overlay {
+      position: fixed;
+      pointer-events: none;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* Set a high z-index to ensure the overlay is on top of other elements */
+      z-index: 9998;
+    }
+
+    /* Center the div horizontally and vertically */
+    .center {
+      position: fixed;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      /* Set a high z-index to ensure the div is on top of other elements */
+      z-index: 9999;
+      /* Set the background color and padding for the div */
+      background-color: #ffffff;
+      padding: 20px;
+      /* pointer-events: all; */
+    }
+  </style>
+
+
+<% if (!userdata.dev1 && !userdata.dev2) { %>
+ <!--  -->
+<div class="overlay" style="background-color: rgba(0, 0, 0, 0.36);"></div>
+<div class="center">
+  <center><h5>YOU HAVEN'T LINKED YOUR DEVICES YET!</h5></center> 
+  <br>
+   <h6>Link your phone and laptop to your account, you will only be able to check-in from these linked
+    devices. Click on Link Device then login from your second device and do the same. <br> You won't be able to change or edit these linked devices once it's linked</h6>
+  <p>You can only link 2 devices and won't be able to check-in without linking your devices</p>
+  
+  
+  
+    <br>
+    <center><button class="btn bg-primary-light" id="link">LINK DEVICE</button></center>
+
+</div>
+<!--  -->
+<% } %>
+
+<% if (userdata.dev1 && !userdata.dev2) { %>
+    <!--  -->
+   <div class="overlay" style="background-color: rgba(0, 0, 0, 0.36);"></div>
+   <div class="center">
+     <center><h5>YOU HAVE LINKED YOUR DEVICE</h5></center> 
+     <br>
+      <h6>Now login from your second device and link that device to continue. <br> Refresh this page after linking the second device.</h6>
+     <p>You can only link 2 devices and won't be able to check-in without linking your devices</p>
+     
+     
+     
+       <br>
+       <center><button class="btn bg-primary-light" id="link">LINK DEVICE</button></center>
+   
+   </div>
+   <!--  -->
+   <% } %>
+
+
+
+
+ 
 
 <section class="content-main">
     <div class="content-header">
@@ -13,30 +87,25 @@
         <div>
           <% if (signedin) { %>
             <a href="/checkout" class="btn btn-primary" style="background-color:#0e4d92;" ><i class="text-muted material-icons md-login"></i>CHECK-OUT</a>
-            <% } else { %>
+            <% } else if (!signedin && userdata.dev1 && userdata.dev2) { %>
               <a href="/checkin" class="btn btn-primary" style="background-color:#0e4d92;"><i class="text-muted material-icons md-login"></i>CHECK-IN</a>
               <% } %>
             
             <div id="clock"></div>
-            <% if (noip) { %>
-                <p>Please connect to our network to checkin</p>
-             
+          
+
+            <% if (!userdata.dev1 || !userdata.dev2) { %>
+             <p>NO DEVICES FOUND</p>
             <% } %>
 
-            <% if (ip) { %>
-                <p>Current ip <%=ip %></p>
-             
-            <% } %>
+            
         </div>
     </div>
     <div class="row d-flex justify-content-center">
       
       <div class="col-xl-4 col-lg-12">
         <div class="card mb-4">
-            <!-- <article class="card-body">
-                <h5 class="card-title">Payment methods</h5>
-                <canvas id="myChart2" height="217"></canvas>
-            </article> -->
+         
 
             <article class="card-body">
                 <h5 class="card-title">Attendance</h5>
@@ -69,32 +138,7 @@
         </div>
         
         
-        <!-- <div class="col-lg-3">
-            <div class="card card-body mb-4">
-                <article class="icontext">
-                    <span class="icon icon-sm rounded-circle bg-warning-light"><i class="text-warning material-icons md-qr_code" style="position: relative;top:12px;"></i></span>
-                    <div class="text">
-                        <h6 class="mb-1 card-title">Products</h6> <span>85</span>
-                        <span class="text-sm">
-                            In 5 Categories
-                        </span>
-                    </div>
-                </article>
-            </div>
-        </div> -->
-        <!-- <div class="col-lg-3">
-            <div class="card card-body mb-4">
-                <article class="icontext">
-                    <span class="icon icon-sm rounded-circle bg-info-light"><i class="text-info material-icons md-shopping_basket" style="position: relative;top:12px;"></i></span>
-                    <div class="text">
-                        <h6 class="mb-1 card-title">Monthly Earning</h6> <span>$6,982</span>
-                        <span class="text-sm">
-                            Based in your local time.
-                        </span>
-                    </div>
-                </article>
-            </div>
-        </div> -->
+      
     </div>
     
     <div class="row d-flex justify-content-center">
@@ -111,37 +155,7 @@
                        
                     </div>
                 </div>
-                <!-- <div class="col-lg-7">
-                    <div class="card mb-4">
-
-
-<article class="card-body">
-                    <h5 class="card-title">Marketing Chanel</h5>
-                    <span class="text-muted font-xs">Facebook</span>
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar" style="width: 15%">15%</div>
-                    </div>
-                    <span class="text-muted font-xs">Instagram</span>
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar" style="width: 65%">65% </div>
-                    </div>
-                    <span class="text-muted font-xs">Google</span>
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar" style="width: 51%"> 51% </div>
-                    </div>
-                    <span class="text-muted font-xs">Twitter</span>
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar" style="width: 80%"> 80%</div>
-                    </div>
-                    <span class="text-muted font-xs">Other</span>
-                    <div class="progress mb-3">
-                        <div class="progress-bar" role="progressbar" style="width: 80%"> 80%</div>
-                    </div>
-                </article>
-
-                       
-                    </div>
-                </div> -->
+             
             </div>
         </div>
 
@@ -155,31 +169,8 @@
                
 </section>
 
+<script src="/javascripts/fp.js"></script>
 
-<script>
-    var deviceInfo = "User Agent: " + navigator.userAgent + "<br>" +
-                 "Screen Resolution: " + screen.width + "x" + screen.height + "<br>" +
-                 "Color Depth: " + screen.colorDepth + "<br>" +
-                 "Window Size: " + window.innerWidth + "x" + window.innerHeight + "<br>" +
-                 "Browser Cookies Enabled: " + navigator.cookieEnabled;
-
-document.getElementById("device-info").innerHTML = deviceInfo;
-
-var deviceModel = "";
-    var userAgent = navigator.userAgent;
-
-    // Regular expression to match device model number
-    var regex = /(?:\(|;)\s*([a-zA-Z0-9]+)\s*(?:\)|;)/;
-
-    var match = userAgent.match(regex);
-
-    if (match) {
-      deviceModel = match[1];
-    }
-
-    document.getElementById("device-model").innerHTML = deviceModel;
-
-</script>
 
 
   <%- include('../partials/footer') %>
