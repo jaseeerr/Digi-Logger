@@ -3,7 +3,7 @@ module.exports={
 
         const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
-        let title
+        let title = ipAddress
         let title1
         title = title.split("")
         title1 = title.slice(0,11)

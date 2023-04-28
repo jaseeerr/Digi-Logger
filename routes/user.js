@@ -18,7 +18,6 @@ router.get('/signup',userController.signup);
 router.post('/signup_submit',userController.postsignup);
 
 
-router.use(network.adminAuthentication)
 /* GET home page. */
 router.get('/',userAuth.userAuthentication,userController.homepage); 
 

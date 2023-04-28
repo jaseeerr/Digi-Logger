@@ -7,20 +7,7 @@ module.exports = {
 
     homepage: (req, res) => {
 
-      function executeTaskIfLate() {
-        const now = new Date();
-        const tenPM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0); // set time to 10:00 PM
-      
-        if (now.getTime() >= tenPM.getTime()) {
-          // execute task here
-          console.log("Executing task at 10:00 PM or later");
-        }
-      
-        // check again in 1 minute
-        setTimeout(executeTaskIfLate, 60000);
-      }
-      
-      executeTaskIfLate();
+      let noip = req.session.noip
 
         let userdata = req.session.userdata
         let signedin = req.session.signedin
@@ -42,7 +29,7 @@ module.exports = {
             percentage = Math.round(percentage)
 
             let absent = data1.absent
-            res.render('user/index', {userdata, signedin, late, percentage, absent,daily,overall});
+            res.render('user/index', {userdata, signedin, late, percentage, absent,daily,overall,noip});
 
           })
 
@@ -151,40 +138,50 @@ module.exports = {
         
        
               
+      const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
 
+      let title = ipAddress
+      let title1
+      title = title.split("")
+      title1 = title.slice(0,11)
+      title1 = title1.join("")
+
+
+      if (title1=="103.214.235" || title1=="115.246.245") {
+            
+        const date = new Date();
+        let data = {
+            date: date,
+            sid: req.session.userdata._id
+        }
+   
+      
+       
+
+        userHelper.checkin(data).then(() => {
+
+            req.session.signedin = true
+            res.redirect('/')
+
+        })
+
+
+         }
+    else{
+      req.session.noip = true
+       
+        res.redirect('/')
+        }   
        
            
          
-            const date = new Date();
+           
 
             
 
             // Output the timezone date and time
-
-            let data = {
-                date: date,
-                sid: req.session.userdata._id
-            }
-       
-          
            
-
-            userHelper.checkin(data).then(() => {
-
-
-              
-             
-                
-
-               
-
-                req.session.signedin = true
-                res.redirect('/')
- 
-            })
-        
-
-
+      
     },
 
     checkout: (req, res) => {
