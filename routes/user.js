@@ -17,10 +17,9 @@ router.get('/signup',userController.signup);
 router.post('/signup_submit',userController.postsignup);
 
 
-
-
+router.use(userAuth.userAuthentication)
 /* GET home page. */
-router.get('/',userAuth.userAuthentication,userController.homepage);
+router.get('/',userAuth.userAuthentication,userController.homepage); 
 
 /* GET check-in page. */
 router.get('/checkin',userAuth.userAuthentication,userController.checkin);
