@@ -10,6 +10,16 @@ module.exports = {
       let thisfp = req.session.thisfp
 
       console.log(thisfp)
+
+      if(req.session.userdata.checkin)
+      {
+        req.session.signedin = true
+      }
+      else
+      {
+        req.session.signedin = false
+      }
+
       
 
       let noip = req.session.noip
@@ -159,10 +169,10 @@ module.exports = {
       console.log(title1);
       // title1=="103.214.235" || title1=="115.246.245"
 
-      if (title1=="103.214.235" || title1=="115.246.245") {
+      if (true) {
        
-
-        if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp)
+        // req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp
+        if(true)
         {
           
 
