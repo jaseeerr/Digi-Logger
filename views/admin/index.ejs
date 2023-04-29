@@ -17,13 +17,13 @@
     <div class="row d-flex justify-content-center">
         <div class="col-lg-5">
             <div class="card mb-4">
-                <article class="card-body">
+                <article class="card-body" style="overflow-y: auto; max-height: 250px;">
                     <h5 class="card-title">Today's Absentees</h5>
                     <% if (todays.length==0) { %>
                      <h6>NO DATA FOUND</h6>
 
                     <% } %>
-                    <div class="new-member-list">
+                    <div class="new-member-list" >
                         <% if (todays.length!=0) { %>
                          
                             <% todays.forEach(element => { %>
@@ -41,18 +41,22 @@
                                 </div>
                             <% }) %>
                             <% } %>
-                        
-                        
-                       
-                       
+                    
                     </div>
+
+                   
+
+                    
+
+                    
+                    
                 </article>
             </div>
         </div>
 
         <div class="col-lg-5">
             <div class="card mb-4">
-                <article class="card-body">
+                <article class="card-body" style="overflow-y: auto; max-height: 250px;">
                     <h5 class="card-title">Frequent Absentees</h5>
                     <div class="new-member-list">
 
