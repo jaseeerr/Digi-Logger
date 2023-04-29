@@ -8,6 +8,8 @@ module.exports = {
     homepage: (req, res) => {
 
       let thisfp = req.session.thisfp
+
+      console.log(thisfp)
       
 
       let noip = req.session.noip
@@ -150,11 +152,15 @@ module.exports = {
       title = title.split("")
       title1 = title.slice(0,11)
       title1 = title1.join("")
-
+      
       req.session.ip = ipAddress
+
+      console.log("HHERERERE");
+      console.log(title1);
       // title1=="103.214.235" || title1=="115.246.245"
 
       if (title1=="103.214.235" || title1=="115.246.245") {
+       
 
         if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp)
         {

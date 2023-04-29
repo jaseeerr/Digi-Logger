@@ -78,5 +78,10 @@ let err = true
 
   if(thisfp==0)
   {
+    console.log("GETTING FP")
     getfingerprint(myString)
+  }
+  else
+  {
+    console.log("GOT FP")
   }
