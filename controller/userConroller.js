@@ -154,9 +154,13 @@ module.exports = {
       req.session.ip = ipAddress
       // title1=="103.214.235" || title1=="115.246.245"
 
-      if (title1=="103.214.235" || title1=="115.246.245" && req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp ) {
-            
-        const date = new Date();
+      if (title1=="103.214.235" || title1=="115.246.245") {
+
+        if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp)
+        {
+          
+
+          const date = new Date();
         let data = {
             date: date,
             sid: req.session.userdata._id
@@ -175,11 +179,22 @@ module.exports = {
         })
 
 
+        }
+        else
+        {
+          res.redirect('/')
+        }
+        
+        
+            
+        
+
+
          }
     else{
       req.session.noip = true
        
-        res.redirect('/')
+       
         }   
        
            
