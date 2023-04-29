@@ -165,7 +165,9 @@ module.exports = {
       
        
 
-        userHelper.checkin(data).then(() => {
+        userHelper.checkin(data).then((userdata) => {
+
+          req.session.userdata = userdata
 
             req.session.signedin = true
             res.redirect('/')
@@ -194,17 +196,10 @@ module.exports = {
     checkout: (req, res) => {
         const date = new Date();
 
-        // Get the UTC timestamp in milliseconds
-        const utcTimestamp = date.getTime();
-
-        // Calculate the desired timezone offset in milliseconds (+5:30 = 5.5 hours = 5.5 * 60 * 60 * 1000 ms)
-        const timezoneOffsetMs = 5.5 * 60 * 60 * 1000;
-
-        // Create a new date object with the desired timezone offset
-        const timezoneDate = new Date(utcTimestamp + timezoneOffsetMs);
+       
 
         let data = {
-            date: timezoneDate,
+            date: date,
             sid: req.session.userdata._id
         }
 

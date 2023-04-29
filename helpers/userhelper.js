@@ -30,7 +30,8 @@ module.exports = {
                             batch:batch1,
                             phone:userdata.phone,
                             domain:userdata.domain,
-                            password:pass
+                            password:pass,
+                            checkin:false
                             
             
                         })
@@ -143,8 +144,17 @@ module.exports = {
                         }
                     }).then((data)=>{
 
+                        User.findByIdAndUpdate(data1.sid,{
+                            $set:{
+                                checkin:true
+                            }
+                        }).then((userdata)=>{
+
+                            resolve(userdata)
+                        })
+
                       
-                        resolve(data)
+                        
                         
                     })
                 }
@@ -185,7 +195,15 @@ module.exports = {
                         
                     }
                    }).then(()=>{
-                    resolve()
+
+                    User.findByIdAndUpdate(data1.sid,{
+                        $set:{
+                            checkin:false
+                        }
+                    }).then((userdata)=>{
+                        resolve(userdata)
+                    })
+                   
                    })
 
             })

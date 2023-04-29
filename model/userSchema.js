@@ -9,6 +9,7 @@ const signupSchema = new Schema({
     domain:String,
     dev1:String,
     dev2:String,
+    checkin:Boolean,
     block:Boolean
    
 })
