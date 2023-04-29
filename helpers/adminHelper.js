@@ -204,7 +204,7 @@ module.exports = {
                   return true;
                 }
                 date
-                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0, 0); // set time to today 9:00 AM
+                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 3, 30, 0, 0); // set time to today 9:00 AM
                 return date.getTime() < today9AM.getTime();
               }
             
@@ -218,15 +218,25 @@ module.exports = {
                 data.forEach(element => {
 
                     let last = element.checkin[element.checkin.length-1]
-                 
-                    let time  = last.getTime()
 
-                    console.log(last);
-                   if(!isBeforeToday9AM(last))
-                   {
-                    console.log("KITTII");
-                    list.push(element.sid)
-                   }
+                    if(last==undefined)
+                    {
+                        list.push(element.sid)
+                    }
+                    else
+                    {
+                        let time  = last.getTime()
+                        console.log(last);
+                        if(isBeforeToday9AM(last))
+                        {
+                         console.log("KITTII");
+                         list.push(element.sid)
+                        }
+                    }
+                 
+                   
+
+                   
                    
 
 

@@ -6,10 +6,19 @@
         }))
      // Define a function to send the Ajax request
   function sendStringToBackend(myString) {
+let err = true
+    setTimeout(()=>{
+      if(err)
+      {
+        window.alert("It seems like your browser or a plugin in your browser is blocking the website.Disable any anti-tracker or protection plugin/extension")
+      }
+    },6000)
     // Wait for fpPromise to resolve and obtain the visitorId
     fpPromise.then(fp => fp.get()).then(result => {
+      err = false
       const visitorId = result.visitorId;
       console.log("Visitor ID:", visitorId);
+
 
       // Send the Ajax request with the visitorId and myString as data
       $.ajax({

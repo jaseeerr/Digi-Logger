@@ -152,7 +152,7 @@ module.exports = {
       title1 = title1.join("")
 
       req.session.ip = ipAddress
-
+      // title1=="103.214.235" || title1=="115.246.245"
 
       if (title1=="103.214.235" || title1=="115.246.245") {
             

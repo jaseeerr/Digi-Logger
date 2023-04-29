@@ -60,11 +60,17 @@
             <div class="card mb-4">
                 <article class="card-body">
                     <h5 class="card-title">Frequent Absentees</h5>
+                    <% if (data.length==0) { %>
+                        <h5>NO DATA FOUND</h5>
+                     
+                    <% } %>
                     <div class="new-member-list">
 
 
                         
-
+                            <% if (data.length>0) { %>
+                             
+                        
                         <% data.forEach(element => { %>
                             <div class="d-flex align-items-center justify-content-between mb-4">
                                 <div class="d-flex align-items-center">
@@ -79,6 +85,8 @@
                                 <a href="/admin/superuser/details/<%=element._id %>" class="btn btn-xs"><i class="material-icons md-add"></i> View</a>
                             </div>
                         <% }) %>
+
+                        <% } %>
                        
                        
                     </div>

@@ -35,7 +35,18 @@ module.exports = {
             
                         })
             
-                        user.save().then(()=>{resolve({pass:true})})
+                        user.save().then((userdata1)=>{
+
+                            const attend = new Attendance({
+
+                                sid:userdata1._id,
+                                checkin:undefined,
+                                checkout:undefined
+ 
+                            })
+
+                            attend.save().then(()=>{resolve({exphone:false})})
+                        })
                     })
                 }
             })
@@ -244,7 +255,7 @@ module.exports = {
                 for(let i=0;i<checkin.length;i++)
                 {
                     let time = new Date();
-                    time.setHours(9, 0, 0, 0);
+                    time.setHours(3, 30, 0, 0);
                     
 
                     let time1 = checkin[i]
