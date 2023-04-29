@@ -18,9 +18,11 @@
         <div class="col-lg-5">
             <div class="card mb-4">
                 <article class="card-body" style="overflow-y: auto; max-height: 250px;">
-                    <h5 class="card-title">Today's Absentees <a href="/admin/absenteestable" class="btn btn-primary btn-xs"><small>View table</small></a> </h5>
-
-                    <hr>
+                    <div style="position: fixed;z-index: 999;background-color: rgb(255, 255, 255);width: max-content;">
+                        <h5 class="card-title" style="padding-right: 250px;" >Today's Absentees</h5>
+                    </div>
+                   
+                    <hr style="margin-bottom: 20px;margin-top: 40px;">
                     <% if (todays.length==0) { %>
                      <h6>NO DATA FOUND</h6>
 
@@ -59,8 +61,11 @@
         <div class="col-lg-5">
             <div class="card mb-4">
                 <article class="card-body" style="overflow-y: auto; max-height: 250px;">
-                    <h5 class="card-title">Frequent Absentees  </h5>
-                    <hr>
+                    <div style="position: fixed;z-index: 999;background-color: rgb(255, 255, 255);width: max-content;">
+                        <h5 class="card-title" style="padding-right: 250px;" >Frequent Absentees</h5>
+                    </div>
+                   
+                    <hr style="margin-bottom: 20px;margin-top: 40px;">
                     <div class="new-member-list">
 
                         <% data.forEach(element => { %>
@@ -83,6 +88,54 @@
                 </article>
             </div>
         </div>
+
+<!-- //batches -->
+        <div class="col-lg-5">
+            <div class="card mb-4">
+                <article class="card-body" style="overflow-y: auto; max-height: 250px;">
+                    <div style="position: fixed;z-index: 999;background-color: rgb(255, 255, 255);width: max-content;">
+                        <h5 class="card-title" style="padding-right: 250px;" >Batches</h5>
+                    </div>
+                   
+                    <hr style="margin-bottom: 20px;margin-top: 40px;">
+                    <% if (batches.length==0) { %>
+                     <h6>NO DATA FOUND</h6>
+
+                    <% } %>
+                    <div class="new-member-list" >
+                        <% if (batches.length!=0) { %>
+                         
+                            <% batches.forEach(element => { %>
+                                <div class="d-flex align-items-center justify-content-between mb-4">
+                                    <div class="d-flex align-items-center">
+                                        <img src="/stylesheets/assets-backend/imgs/dp.avif" alt="" class="avatar">
+                                        <div>
+                                            <h6><%=element%></h6>
+                                            <p class="text-muted font-xs">
+                                              
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a href="/admin/absentbatch/<%=element%>" class="btn btn-xs"><i class="material-icons md-add"></i> View</a>
+                                </div>
+                            <% }) %>
+                            <% } %>
+                    
+                    </div>
+
+                   
+
+                    
+
+                    
+                    
+                </article>
+            </div>
+        </div>
+
+
+
+
             <div class="row">
                
                 <!-- <div class="col-lg-7">

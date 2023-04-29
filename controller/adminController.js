@@ -14,8 +14,14 @@ module.exports = {
             adminHelper.getTodayabsent().then((todays)=>{
 
                 req.session.todays = todays
+                let batches = []
+                todays.forEach(element => {
+                    batches.push(element.batch)
+                });
 
-                res.render('admin/index',{userdata,data,todays})
+                console.log(batches);
+
+                res.render('admin/index',{userdata,data,todays,batches})
             })
 
            
@@ -130,6 +136,27 @@ res.redirect('/admin')
 
         res.render('admin/absenttable',{data})
         
+
+    },
+
+    absentbatch:(req,res)=>{
+
+        let todays = req.session.todays
+        let batch = req.params.id
+
+        let data = []
+
+        todays.forEach(element => {
+
+            if(element.batch==batch)
+            {
+                data.push(element)
+            }
+            
+        });
+
+        res.render('admin/absenttable',{data})
+
 
     },
 

@@ -181,6 +181,7 @@ module.exports = {
             date: date,
             sid: req.session.userdata._id
         }
+       
    
       
        
@@ -209,7 +210,7 @@ module.exports = {
          }
     else{
       req.session.noip = true
-       
+      res.redirect('/')
        
         }   
        

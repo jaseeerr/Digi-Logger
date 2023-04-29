@@ -27,6 +27,9 @@ router.get('/students',adminAuth.adminAuthentication,adminController.students)
 /* GET today's absentees(table). */
 router.get('/absenteestable',adminAuth.adminAuthentication,adminController.absenteestable)
 
+/* GET today's absentees(batch wise). */
+router.get('/absentbatch/:id',adminAuth.adminAuthentication,adminController.absentbatch)
+
 /* GET more info. */
 router.get('/details/:id',adminAuth.adminAuthentication,adminController.details)
 
