@@ -24,6 +24,9 @@ router.post('/signup_submit',adminController.postsignup)
 /* GET students. */
 router.get('/students',adminAuth.adminAuthentication,adminController.students)
 
+/* GET today's absentees(table). */
+router.get('/absenteestable',adminAuth.adminAuthentication,adminController.absenteestable)
+
 /* GET more info. */
 router.get('/details/:id',adminAuth.adminAuthentication,adminController.details)
 

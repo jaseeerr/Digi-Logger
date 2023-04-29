@@ -18,7 +18,9 @@
         <div class="col-lg-5">
             <div class="card mb-4">
                 <article class="card-body" style="overflow-y: auto; max-height: 250px;">
-                    <h5 class="card-title">Today's Absentees</h5>
+                    <h5 class="card-title">Today's Absentees <a href="/admin/absenteestable" class="btn btn-primary btn-xs"><small>View table</small></a> </h5>
+
+                    <hr>
                     <% if (todays.length==0) { %>
                      <h6>NO DATA FOUND</h6>
 
@@ -57,7 +59,8 @@
         <div class="col-lg-5">
             <div class="card mb-4">
                 <article class="card-body" style="overflow-y: auto; max-height: 250px;">
-                    <h5 class="card-title">Frequent Absentees</h5>
+                    <h5 class="card-title">Frequent Absentees  </h5>
+                    <hr>
                     <div class="new-member-list">
 
                         <% data.forEach(element => { %>

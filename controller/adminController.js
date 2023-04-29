@@ -7,11 +7,13 @@ module.exports = {
     home:(req,res)=>{
 
         let userdata = req.session.admindata
-
+      
 
          adminHelper.getAbsentees().then((data)=>{
 
             adminHelper.getTodayabsent().then((todays)=>{
+
+                req.session.todays = todays
 
                 res.render('admin/index',{userdata,data,todays})
             })
@@ -118,6 +120,16 @@ res.redirect('/admin')
 
             res.render('admin/students',{data,userdata})
         })
+
+    },
+
+    absenteestable:(req,res)=>{
+
+        let data = req.session.todays
+
+
+        res.render('admin/absenttable',{data})
+        
 
     },
 

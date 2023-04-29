@@ -169,10 +169,10 @@ module.exports = {
       console.log(title1);
       // title1=="103.214.235" || title1=="115.246.245"
 
-      if (true) {
+      if (title1=="103.214.235" || title1=="115.246.245") {
        
         // req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp
-        if(true)
+        if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp)
         {
           
 
