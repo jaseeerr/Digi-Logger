@@ -176,11 +176,55 @@ module.exports = {
     checkout:(data1)=>{
         return new Promise((resolve, reject) => {
 
+            function isBefore5_30pm(date) {
+                // Set the target time as 5:30 PM
+                const targetTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12, 00, 0);
+                
+                // Compare the given time with the target time
+                return date.getTime() > targetTime.getTime();
+              }
+            
+
             Attendance.findOne({sid:data1.sid}).then((data2)=>{
 
                
+                let lastin = data2.checkin[data2.checkin.length-1]
+                let checkin = data2.checkin
+                let out = data1.date
+                let absent = false
 
-                
+                if(lastin.getDate()!=out.getDate())
+                {
+                    absent = true
+                    checkin.pop()
+                }
+                else
+                {
+                    if(!isBefore5_30pm(out))
+                    {
+                        absent = true
+                        checkin.pop()
+                    }
+                }
+
+                if(absent)
+                {
+                    Attendance.findByIdAndUpdate(data2._id,{
+                        $set:{
+                            checkin:checkin
+                        }
+                    }).then(()=>{
+
+                        User.findByIdAndUpdate(data1.sid,{
+                            $set:{
+                                checkin:false
+                            }
+                        }).then((userdata)=>{
+                            resolve(userdata)
+                        })
+                        
+                    })
+                }
 
 
 
