@@ -148,9 +148,16 @@ module.exports = {
                             $set:{
                                 checkin:true
                             }
-                        }).then((userdata)=>{
+                        }).then(()=>{
 
-                            resolve(userdata)
+                           User.findById(data1.sid).then((userdata1)=>{
+
+                            console.log("FROM HELPER");
+                            console.log(userdata1);
+                            resolve(userdata1)
+                           })
+
+                         
                         })
 
                       
@@ -219,8 +226,12 @@ module.exports = {
                             $set:{
                                 checkin:false
                             }
-                        }).then((userdata)=>{
-                            resolve(userdata)
+                        }).then(()=>{
+                            User.findById(data1.sid).then((userdata1)=>{
+
+                                resolve(userdata1)
+
+                            })
                         })
                         
                     })

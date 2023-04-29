@@ -9,7 +9,6 @@ module.exports = {
 
       let thisfp = req.session.thisfp
 
-      console.log(thisfp)
 
       if(req.session.userdata.checkin)
       {
@@ -165,8 +164,6 @@ module.exports = {
       
       req.session.ip = ipAddress
 
-      console.log("HHERERERE");
-      console.log(title1);
       // title1=="103.214.235" || title1=="115.246.245"
 
       if (true) {
@@ -189,6 +186,7 @@ module.exports = {
         userHelper.checkin(data).then((userdata) => {
 
           req.session.userdata = userdata
+          // console.log(userdata);
 
             req.session.signedin = true
             res.redirect('/')
