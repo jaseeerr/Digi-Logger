@@ -199,13 +199,20 @@ module.exports = {
             function isBeforeToday9AM(date) {
                 const now = new Date();
                 if (date.getDate() !== now.getDate()) {
-                    console.log("false");
+                   
                     // check if the day is not the same as today's day
                   return true;
                 }
                 date
                 const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 3, 30, 0, 0); // set time to today 9:00 AM
-                return date.getTime() < today9AM.getTime();
+                if(date.getTime() < today9AM.getTime())
+                {
+                    return true
+                }
+                else 
+                {
+                    return false
+                }
               }
             
 
@@ -226,10 +233,10 @@ module.exports = {
                     else
                     {
                         let time  = last.getTime()
-                        console.log(last);
+                   
                         if(isBeforeToday9AM(last))
                         {
-                         console.log("KITTII");
+                        
                          list.push(element.sid)
                         }
                     }
@@ -246,7 +253,7 @@ module.exports = {
                 })
                 if(list.length==0)
                 {
-                    console.log("LIST EMPTY");
+                   
                     resolve(std)
                 }
 
@@ -264,7 +271,7 @@ module.exports = {
 
                         if(list.length==std.length)
                         {
-                            console.log(std);
+                           
                             resolve(std)
                         }
                     })
@@ -283,7 +290,7 @@ module.exports = {
 
         let userdata = req.session.superuserdata
         let id = req.params.id
-        console.log(id);
+   
         userHelper.checkattendance(id).then((data1)=>{
 
 

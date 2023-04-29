@@ -336,12 +336,10 @@ module.exports = {
                     
                     
                 });
-                console.log(arr1);
-                console.log("arr11111");
+             
                 const arr2 = [...new Set(arr1)];
 
-                console.log(arr2);
-                console.log("arr22222");
+               
 
              
 

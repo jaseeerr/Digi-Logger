@@ -221,7 +221,7 @@ module.exports = {
 
     linkdevice:(req,res)=>{
 
-      console.log(req.body);
+      
       let id = req.session.userdata._id
       let fp = req.body.visitorId
       userHelper.linkdevice(id,fp).then((user)=>{
