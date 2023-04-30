@@ -57,6 +57,7 @@ res.redirect('/admin')
     customreport:(req,res)=>{
 
         let date = req.session.customof
+        console.log(date);
         let temp = []
         let data = []
         let batches = []
@@ -88,7 +89,7 @@ res.redirect('/admin')
 
     getcustom:(req,res)=>{
 
-        
+        req.session.customof = req.body.date
 
          adminHelper.getTodayabsentBydate(req.body.date).then((data)=>{
 
@@ -102,7 +103,7 @@ res.redirect('/admin')
 
     custombatch:(req,res)=>{
 
-        req.session.customof = req.params.id
+        let date = req.session.customof
 
         let id = req.params.id
 
@@ -118,7 +119,7 @@ res.redirect('/admin')
             
         });
 
-        res.render('admin/absenttable',{data})
+        res.render('admin/absenttable',{data,date,id})
 
     },
 
