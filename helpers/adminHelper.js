@@ -203,7 +203,7 @@ module.exports = {
                     // check if the day is not the same as today's day
                   return true;
                 }
-                date
+                
                 const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 3, 30, 0, 0); // set time to today 9:00 AM
                 if(date.getTime() < today9AM.getTime())
                 {
@@ -258,6 +258,92 @@ module.exports = {
                 }
 
 
+                
+            }).then(()=>{
+
+                list.forEach(element => {
+
+                    User.findById(element).then((data)=>{
+
+                         std.push(data)
+
+                    }).then(()=>{
+
+                        if(list.length==std.length)
+                        {
+                           
+                            resolve(std)
+                        }
+                    })
+                    
+                });
+                
+            })
+
+            
+          
+
+        })
+    },
+
+    getTodayabsentBydate:(date1)=>{
+
+        return new Promise((resolve, reject) => {
+
+            function isBeforeToday9AM(date,date1) {
+                const now = new Date();
+               
+                let date2 = new Date(date1)
+               
+                if (date.getDate() !== date2.getDate()) {
+                   
+                    // check if the day is not the same as today's day
+                  return true;
+                }
+                
+                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 3, 30, 0, 0); // set time to today 9:00 AM
+                if(date.getTime() < today9AM.getTime())
+                {
+                    return true
+                }
+                else 
+                {
+                    return false
+                }
+              }
+            
+
+          let list = []
+          let std = []
+            Attendance.find({}).then((data)=>{
+
+                
+
+                data.forEach(element => {
+
+                    let last = element.checkin[element.checkin.length-1]
+
+                    if(last==undefined)
+                    {
+                        list.push(element.sid)
+                    }
+                    else
+                    {
+                        let time  = last.getTime()
+                   
+                        if(isBeforeToday9AM(last,date1))
+                        {
+                        
+                         list.push(element.sid)
+                        }
+                    }   
+                     
+                })
+                if(list.length==0)
+                {
+                   
+                    resolve(std)
+                }
                 
             }).then(()=>{
 

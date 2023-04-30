@@ -14,10 +14,13 @@ module.exports = {
             adminHelper.getTodayabsent().then((todays)=>{
 
                 req.session.todays = todays
-                let batches = []
+                let temp = []
                 todays.forEach(element => {
-                    batches.push(element.batch)
+                    temp.push(element.batch)
                 });
+
+                const temp1 = new Set(temp);
+                let batches = Array.from(temp1);
 
                 console.log(batches);
 
@@ -49,6 +52,70 @@ res.redirect('/admin')
            res.render('admin/login',{loginerr,blockerr})
         }
      
+    },
+
+    customreport:(req,res)=>{
+        let temp = []
+        let data = []
+        let batches = []
+
+        if(req.session.customdate)
+        {
+            data = req.session.customdate
+            data.forEach(element => {
+                temp.push(element.batch)
+            });
+
+            const temp1 = new Set(temp);
+
+            batches = Array.from(temp1);
+             
+
+
+
+        }
+
+
+        res.render('admin/customreport',{batches})
+
+    },
+
+
+
+    
+
+    getcustom:(req,res)=>{
+
+        let date = new Date(req.body.date)
+
+         adminHelper.getTodayabsentBydate(req.body.date).then((data)=>{
+
+           req.session.customdate = data
+
+           res.redirect('/admin/customreport')
+
+        })
+
+    },
+
+    custombatch:(req,res)=>{
+
+        let id = req.params.id
+
+        let temp = req.session.customdate
+        let data = []
+
+        temp.forEach(element => {
+
+            if(element.batch==id)
+            {
+                data.push(element)
+            }
+            
+        });
+
+        res.render('admin/absenttable',{data})
+
     },
 
     postlogin:(req,res)=>{
@@ -129,15 +196,7 @@ res.redirect('/admin')
 
     },
 
-    absenteestable:(req,res)=>{
-
-        let data = req.session.todays
-
-
-        res.render('admin/absenttable',{data})
-        
-
-    },
+    
 
     absentbatch:(req,res)=>{
 
@@ -165,12 +224,12 @@ res.redirect('/admin')
         let userdata = req.session.admindata
         let id = req.params.id
         console.log(id);
-        userHelper.checkattendance(id).then((data1)=>{
+       
 
 
 
       
-        userHelper.checklate(id).then((late) => { 
+       
 
 
           userHelper.graphdata(id).then((graphdata)=>{
@@ -183,11 +242,11 @@ res.redirect('/admin')
                     let overall = graphdata.overall
                     overall.splice(12)
         
-                    let percentage =  data1.percentage 
+                    let percentage =  graphdata.percentage 
                     percentage = Math.round(percentage)
         
-                    let absent = data1.absent
-                    res.render('admin/details', {userdata, late, percentage, absent,daily,overall,user});
+                    let absent = graphdata.absent
+                    res.render('admin/details', {userdata, percentage, absent,daily,overall,user});
 
                
  
@@ -204,8 +263,8 @@ res.redirect('/admin')
           
 
 
-        })
-      })
+       
+     
 
 
     },

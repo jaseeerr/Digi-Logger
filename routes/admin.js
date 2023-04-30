@@ -9,6 +9,16 @@ const suAuth = require('../auth/superuser')
 /* GET home. */
 router.get('/',adminAuth.adminAuthentication,adminController.home)
 
+/* GET custom details. */
+router.get('/customreport',adminAuth.adminAuthentication,adminController.customreport)
+
+/* POST getcustom details. */
+router.post('/getcustom',adminAuth.adminAuthentication,adminController.getcustom)
+
+/* GET batch table. */
+router.get('/getcustombatch/:id',adminAuth.adminAuthentication,adminController.custombatch)
+
+
 /* GET login. */
 router.get('/login',adminController.login)
 
@@ -23,9 +33,6 @@ router.post('/signup_submit',adminController.postsignup)
 
 /* GET students. */
 router.get('/students',adminAuth.adminAuthentication,adminController.students)
-
-/* GET today's absentees(table). */
-router.get('/absenteestable',adminAuth.adminAuthentication,adminController.absenteestable)
 
 /* GET today's absentees(batch wise). */
 router.get('/absentbatch/:id',adminAuth.adminAuthentication,adminController.absentbatch)
