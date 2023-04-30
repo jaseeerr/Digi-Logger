@@ -4,7 +4,13 @@
 <section class="content-main">
     <div class="content-header">
         <div>
-            <h2 class="content-title card-title">sales report </h2>
+            
+            <% if (batches.length>0) { %>
+                <h2 class="content-title card-title">Absentees report of <%=date %> </h2>
+
+                <% } else { %>
+                    <h2 class="content-title card-title">Absentees report </h2>
+            <% } %>
             
         </div>
         

@@ -55,6 +55,8 @@ res.redirect('/admin')
     },
 
     customreport:(req,res)=>{
+
+        let date = req.session.customof
         let temp = []
         let data = []
         let batches = []
@@ -76,7 +78,7 @@ res.redirect('/admin')
         }
 
 
-        res.render('admin/customreport',{batches})
+        res.render('admin/customreport',{batches,date})
 
     },
 
@@ -86,7 +88,7 @@ res.redirect('/admin')
 
     getcustom:(req,res)=>{
 
-        let date = new Date(req.body.date)
+        
 
          adminHelper.getTodayabsentBydate(req.body.date).then((data)=>{
 
@@ -99,6 +101,8 @@ res.redirect('/admin')
     },
 
     custombatch:(req,res)=>{
+
+        req.session.customof = req.params.id
 
         let id = req.params.id
 
