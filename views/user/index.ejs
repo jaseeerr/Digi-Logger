@@ -1,4 +1,5 @@
 <%- include('../partials/header') %>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <style>
     /* Disable the body content */
@@ -97,10 +98,10 @@
         </div>
         <div>
           <% if (signedin) { %>
-            <a href="/checkout" class="btn btn-primary" style="background-color:#0e4d92;" ><i class="text-muted material-icons md-login"></i>CHECK-OUT</a>
+            <a href="#" onclick="checkout()" class="btn btn-primary" style="background-color:#0e4d92;" ><i class="text-muted material-icons md-login"></i>CHECK-OUT</a>
             <% } else if (!signedin && userdata.dev1 && userdata.dev2) { %>
               <% if (userdata.dev1==thisfp || userdata.dev2==thisfp) { %>
-
+               
                 <a href="/checkin" class="btn btn-primary" style="background-color:#0e4d92;"><i class="text-muted material-icons md-login"></i>CHECK-IN</a>
 
               <% } %>
@@ -109,8 +110,12 @@
             <div id="clock"></div>
             <% if (noip) { %>
              <p>Please connect to brototype <br> network to check-in.</p>
-          
             <% } %>
+
+            <% if (inout) { %>
+              <p>You are already logged for the day. <br> </p>
+             <% } %>
+
           
 
             <% if (!userdata.dev1 || !userdata.dev2) { %>
@@ -188,6 +193,31 @@
        
                
 </section>
+
+
+<script>
+  function checkout()
+  {
+    let now = new Date()
+    
+
+    const date = new Date(); 
+    date.setHours(17); 
+    date.setMinutes(30); 
+
+    if(now.getTime()<date.getTime())
+    {
+      if(window.confirm("You won't be able to check-in back today. Are you sure you want to checkout?Click on to confirm"))
+      {
+        window.location.href = "/checkout"
+
+      }
+
+    }
+
+
+  }
+</script>
 
 <script src="/javascripts/fp.js"></script>
 

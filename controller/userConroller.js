@@ -7,7 +7,13 @@ module.exports = {
 
     homepage: (req, res) => {
 
+      const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+      console.log("ipppppppppppppppppppppppp");
+      console.log(ipAddress);
+
       let thisfp = req.session.thisfp
+      let inout = req.session.inout
+      req.session.inout = false
 
 
       if(req.session.userdata.checkin)
@@ -27,12 +33,12 @@ module.exports = {
 
         let userdata = req.session.userdata
         let signedin = req.session.signedin
-        userHelper.checkattendance(userdata._id).then((data1)=>{
+       
 
 
 
       
-        userHelper.checklate(userdata._id).then((late) => { 
+       
 
 
           userHelper.graphdata(userdata._id).then((graphdata)=>{
@@ -41,11 +47,11 @@ module.exports = {
             let overall = graphdata.overall
             overall.splice(12)
 
-            let percentage =  data1.percentage 
+            let percentage =  graphdata.percentage 
             percentage = Math.round(percentage)
 
-            let absent = data1.absent
-            res.render('user/index', {userdata, signedin, late, percentage, absent,daily,overall,noip,ip,thisfp});
+            let absent = graphdata.absent
+            res.render('user/index', {userdata, signedin,  percentage, absent,daily,overall,noip,ip,thisfp,inout});
 
           })
 
@@ -53,8 +59,8 @@ module.exports = {
           
 
 
-        })
-      })
+       
+     
 
     },
 
@@ -161,15 +167,14 @@ module.exports = {
       title = title.split("")
       title1 = title.slice(0,11)
       title1 = title1.join("")
-      
       req.session.ip = ipAddress
 
       // title1=="103.214.235" || title1=="115.246.245"
 
-      if (true) {
+      if (title1=="103.214.235" || title1=="115.246.245") {
        
         // req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp
-        if(true)
+        if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp)
         {
           
 
@@ -185,7 +190,15 @@ module.exports = {
 
         userHelper.checkin(data).then((userdata) => {
 
-          req.session.userdata = userdata
+          if(userdata)
+          {
+            req.session.userdata = userdata
+          }
+          else
+          {
+            req.session.inout = true
+          }
+         
           // console.log(userdata);
 
             req.session.signedin = true

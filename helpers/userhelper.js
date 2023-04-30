@@ -125,7 +125,18 @@ module.exports = {
                 }
                 else
                 {
-                    
+                    let lastin = data2.checkin[data2.checkin.length-1]
+                    let current = data1.date
+                   
+ 
+
+                    if(lastin.getDate()==current.getDate() && lastin.getMonth==current.getMonth && lastin.getFullYear == current.getFullYear)
+                    {
+                        userdata = false
+                        resolve(userdata)
+                    }
+                    else
+                    {
                     let arr = data2.checkin
                     let limit = data2.limit +1
 
@@ -142,7 +153,7 @@ module.exports = {
                             checkin:arr,
                             limit:limit
                         }
-                    }).then((data)=>{
+                    }).then(()=>{
 
                         User.findByIdAndUpdate(data1.sid,{
                             $set:{
@@ -152,8 +163,7 @@ module.exports = {
 
                            User.findById(data1.sid).then((userdata1)=>{
 
-                            console.log("FROM HELPER");
-                            console.log(userdata1);
+                           
                             resolve(userdata1)
                            })
 
@@ -164,6 +174,9 @@ module.exports = {
                         
                         
                     })
+                    }
+
+                    
                 }
  
                 
@@ -188,7 +201,15 @@ module.exports = {
                 const targetTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12, 00, 0);
                 
                 // Compare the given time with the target time
-                return date.getTime() > targetTime.getTime();
+                if(date.getTime() < targetTime.getTime())
+                {
+                    return false
+
+                }
+                else
+                {
+                    return true
+                }
               }
             
 
@@ -200,6 +221,10 @@ module.exports = {
                 let out = data1.date
                 let absent = false
 
+                console.log("LASTT INNNNNNNNNNNN");
+                console.log(lastin)
+                console.log(out);
+
                 if(lastin.getDate()!=out.getDate())
                 {
                     absent = true
@@ -207,8 +232,9 @@ module.exports = {
                 }
                 else
                 {
-                    if(!isBefore5_30pm(out))
+                    if(isBefore5_30pm(out))
                     {
+
                         absent = true
                         checkin.pop()
                     }
@@ -236,10 +262,9 @@ module.exports = {
                         
                     })
                 }
-
-
-
-                let id = data2._id
+                else
+                {
+                    let id = data2._id
 
                 let arr = data2.checkout
                 arr.push(data1.date)
@@ -255,11 +280,21 @@ module.exports = {
                         $set:{
                             checkin:false
                         }
-                    }).then((userdata)=>{
-                        resolve(userdata)
+                    }).then(()=>{
+                        User.findById(data1.sid).then((userdata)=>{
+
+                            resolve(userdata)
+
+                        })
+                        
                     })
                    
                    })
+                }
+
+
+
+                
 
             })
             
@@ -423,8 +458,8 @@ module.exports = {
                 days = days[8] + days[9]
                 let day = Number(days) 
                 let percentage = 0  
-                percentage = (count/day)*100
-                percentage = Math.round(percentage)
+                percentage = ((count-1)/day)*100
+                // percentage = Math.round(percentage)
                 let absent = 0
                 absent = day - count
 
@@ -467,6 +502,8 @@ module.exports = {
             let monthly = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             let overall = [0,0,0,0,0,0,0,0,0,0,0,0]
             let arr3 = []
+            let absent = 0
+            let percentage =0
 
             Attendance.findOne({sid:id}).then((data)=>{
 
@@ -479,13 +516,14 @@ module.exports = {
                 {
                     let temp = new Date()
                     let time = new Date();
-                    time.setHours(3, 30, 0, 0);
+                    time.setHours(9, 30, 0, 0);
                     let time1 = arr[i]
                     let month = time1.getMonth()
                     let month1 = temp.getMonth()
 
                     if(month==month1)
                     {
+                        
                         if(time1<=time)
                         {
                             let temp = arr[i].toISOString().substring(0, 10) 
@@ -538,13 +576,29 @@ module.exports = {
                     overall[i] = counter
                  }
                       
-             
 
-                resolve({monthly,overall})
+              let present = 0
+              monthly.forEach(element => {
+
+                present = present+element
+                
+              });
+
+              absent = 0
+              let now = new Date
+              let day = now+""
+              day = day[8] + day[9]
+              let day1 = Number(day) 
+              absent = day1 - present
+           
+              percentage = (present/day1)*100
+
+
+                resolve({monthly,overall,absent,percentage})
                 }
                 else
                 {
-                    resolve({monthly,overall})
+                    resolve({monthly,overall,absent,percentage})
                 }
 
             })
