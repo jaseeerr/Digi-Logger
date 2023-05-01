@@ -204,6 +204,8 @@ res.redirect('/admin')
 
     
 
+    
+
     absentbatch:(req,res)=>{
 
         let todays = req.session.todays
@@ -420,11 +422,23 @@ res.redirect('/admin')
         
       });
 
+      req.session.attendeestable = attendees
+
 
       
 
 
         res.render('admin/attendeesgrid',{date,attendees})
+
+    },
+
+    attendeestable:(req,res)=>{
+
+        let data = req.session.attendeestable
+        console.log(data);
+        let date = req.session.of1
+
+        res.render('admin/attendeespdf',{data,date})
 
     },
 

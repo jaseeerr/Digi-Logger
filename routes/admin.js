@@ -34,6 +34,9 @@ router.post('/signup_submit',adminController.postsignup)
 /* GET students. */
 router.get('/students',adminAuth.adminAuthentication,adminController.students)
 
+/* GET attendees table to pdf. */
+router.get('/attendeestable',adminAuth.adminAuthentication,adminController.attendeestable)
+
 /* GET today's absentees(batch wise). */
 router.get('/absentbatch/:id',adminAuth.adminAuthentication,adminController.absentbatch)
 
