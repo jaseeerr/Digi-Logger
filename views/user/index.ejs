@@ -73,7 +73,7 @@
     <!--  -->
    <div class="overlay" style="background-color: rgba(0, 0, 0, 0.36);"></div>
    <div class="center">
-     <center><h5>YOU HAVE LINKED YOUR DEVICE</h5></center> 
+     <center><h5>YOU HAVE LINKED YOUR DEVICES</h5></center> 
      <br>
       <h6>Now login from your second device and link that device to continue. <br> Refresh this page after linking the second device.</h6>
      <p>You can only link 2 devices and won't be able to check-in without linking your devices</p>
@@ -125,6 +125,10 @@
 
             <% if (inout) { %>
               <p>You are already logged for the day. <br> </p>
+             <% } %>
+
+             <% if (thisfp) { %>
+              <p><%=thisfp %> fingerprint</p>
              <% } %>
 
           
