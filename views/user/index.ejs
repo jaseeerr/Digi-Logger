@@ -72,7 +72,7 @@
 <% if (userdata.dev1 && !userdata.dev2) { %>
     <!--  -->
    <div class="overlay" style="background-color: rgba(0, 0, 0, 0.36);"></div>
-   <div class="center">
+   <div class="center" >
      <center><h5>YOU HAVE LINKED YOUR DEVICES</h5></center> 
      <br>
       <h6>Now login from your second device and link that device to continue. <br> Refresh this page after linking the second device.</h6>
@@ -127,9 +127,7 @@
               <p>You are already logged for the day. <br> </p>
              <% } %>
 
-             <% if (thisfp) { %>
-              <p><%=thisfp %> fingerprint</p>
-             <% } %>
+           
 
           
 
@@ -377,7 +375,11 @@
 
 
 
-
+<script>
+  window.addEventListener('load', function() {
+    document.getElementById('myDiv').style.display = 'block';
+  });
+</script>
       
 
 
