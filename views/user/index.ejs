@@ -238,15 +238,27 @@
 
   let checkin
 
+  let checkin2 
+
   function run(checkin1)
   {
     if(checkin1)
     {
-      checkin = true
+      checkin2 = true
+      checkin = "true"
     }
     else
     {
-      checkin = false
+      checkin2 = false
+      if(window.confirm("Are you sure?"))
+      {
+        checkin = ""
+      }
+      else
+      {
+        return
+      }
+      
     }
     const myButton = document.getElementById('capture-button');
 
@@ -289,7 +301,9 @@
   });
   
   function sendPhoto(photoDataUrl) {
-    const formData = new FormData();
+    if(checkin2)
+    {
+      const formData = new FormData();
     const blob = dataURItoBlob(photoDataUrl);
     formData.append('photo', blob);
     formData.append('checkin', checkin);
@@ -305,13 +319,40 @@
         throw new Error('Failed to upload photo');
       }
       console.log('Photo uploaded successfully');
-      location.href = "/checkin"
+      location.href = "/"
     })
     .catch((err) => {
       console.error('Failed to upload photo:', err);
       window.alert("COULDN'T CAPTURE PHOTO")
         location.href = "/"
     });
+    }
+    else
+    {
+      const formData = new FormData();
+    const blob = dataURItoBlob(photoDataUrl);
+    formData.append('photo', blob);
+    formData.append('checkin', checkin);
+  
+    fetch('/uploadout', {
+      method: 'POST',
+      body: formData
+    })
+    .then((response) => {
+      if (!response.ok) {
+        window.alert("COULDN'T CAPTURE PHOTO")
+        location.href = "/"
+        throw new Error('Failed to upload photo');
+      }
+      console.log('Photo uploaded successfully');
+      location.href = "/"
+    })
+    .catch((err) => {
+      console.error('Failed to upload photo:', err);
+      window.alert("COULDN'T CAPTURE PHOTO")
+        location.href = "/"
+    });
+    }
   }
   
   function dataURItoBlob(dataURI) {

@@ -3,6 +3,7 @@ var router = express.Router();
 const userController = require("../controller/userConroller")
 const userAuth = require("../auth/userAuth")
 const multer = require('../helpers/multerHelper')
+const multer1 = require('../helpers/multerHelper1')
 
 
 /* GET login page. */
@@ -17,7 +18,10 @@ router.get('/signup',userController.signup);
 /* POST signup page. */
 router.post('/signup_submit',userController.postsignup);
 /* POST UPLOAD IMAGE*/ 
-router.post('/upload',multer.single('photo'),userController.upload)
+router.post('/upload',userAuth.userAuthentication,multer.single('photo'),userController.upload)
+
+/* POST UPLOAD IMAGE*/ 
+router.post('/uploadout',userAuth.userAuthentication,multer1.single('photo'),userController.upload1)
 
 
 

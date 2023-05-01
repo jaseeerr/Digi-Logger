@@ -1,6 +1,8 @@
 const User = require('../model/userSchema')
 const Attendance = require('../model/attendanceSchema')
 const bcrypt = require('bcrypt')
+const fs = require('fs');
+const path = require('path');
 
 
 
@@ -259,36 +261,63 @@ module.exports = {
                 {
                     if(isBefore5_30pm(out))
                     {
+                        
 
                         absent = true
                         checkin.pop()
                     }
                 }
 
-                if(absent)
+                if(absent===true)
                 {
+                    console.log("ABSENT");
                     Attendance.findByIdAndUpdate(data2._id,{
                         $set:{
                             checkin:checkin
                         }
                     }).then(()=>{
+                        User.findById(data1.sid).then((data3)=>{
 
-                        User.findByIdAndUpdate(data1.sid,{
-                            $set:{
-                                checkin:false
-                            }
-                        }).then(()=>{
-                            User.findById(data1.sid).then((userdata1)=>{
+                            let img1 = data3.checkinImg
+                            let del = img1[img1.length-1]
 
-                                resolve(userdata1)
 
+                            const filePath = path.join(__dirname, '..', 'public', 'images', 'attendees', del);
+
+                            fs.unlink(filePath, (err) => {
+                                if (err) {
+                                  console.error(err);
+                                  return;
+                                }
+                                
+                                console.log('File deleted successfully'+del);
+                              });
+
+
+                            img1.pop()
+                            
+                            User.findByIdAndUpdate(data1.sid,{
+                                $set:{
+                                    checkin:false,
+                                    checkinImg:img1
+                                }
+                            }).then(()=>{
+                                User.findById(data1.sid).then((userdata1)=>{
+    
+                                    resolve(userdata1)
+    
+                                })
                             })
+
                         })
+
+                        
                         
                     })
                 }
                 else
                 {
+                    console.log("faailed");
                     let id = data2._id
 
                 let arr = data2.checkout
@@ -319,7 +348,7 @@ module.exports = {
                 }
 
 
-
+                
                 
 
             })

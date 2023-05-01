@@ -429,9 +429,15 @@ module.exports = {
                 // Get the current date
                 date = new Date(date)
                 const currentDate = new Date(date11);
+
+               
+
               
                 // Set the current date time to 9:30 AM
-                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 9, 30);
+                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 9, 0);
+
+                console.log("selected date:  "+currentDateTime);
+                console.log("incoming:  "+date);
               
                 // Check if the input date is before the current date time, on the same day and same month
                 return date.getTime() < currentDateTime.getTime() && 
@@ -446,13 +452,30 @@ module.exports = {
 
                 
                 data.forEach(element => {
-                    let lastin = element.checkin[element.checkin.length-1]
+                    
+
+                    element.checkin.forEach(element1 => {
+
+                        let lastin = new Date(element1)
+                        let current = new Date(date11)
+
+                       
+
+                        if(lastin.getFullYear()===current.getFullYear() && lastin.getMonth()===current.getMonth() && lastin.getDate()===lastin.getDate() )
+                        {
+                            console.log(current);
+                            console.log(lastin);
+                            if(isBeforeNineThirtyAMToday(lastin))
+                            {
+                                list.push(element.sid)
+                            }
+                        }
+
+                        
+                    });
 
                     
-                    if(isBeforeNineThirtyAMToday(lastin))
-                    {
-                        list.push(element.sid)
-                    }
+                  
                     
                 });
                 if(list.length==0)

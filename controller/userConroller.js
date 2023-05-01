@@ -10,6 +10,7 @@ module.exports = {
       const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
       console.log("ipppppppppppppppppppppppp");
       console.log(ipAddress);
+      
 
       let thisfp = req.session.thisfp
       let inout = req.session.inout
@@ -68,31 +69,22 @@ module.exports = {
     upload:(req, res) => {
 
 
-      console.log("BODYYYDATAAAA");
-      console.log(req.body);
-      console.log(req.body.checkin);
-
-      console.log(req.file)
-      req.session.img = req.file.filename
-      console.log(typeof(req.body.checkin))
-
-      if(req.body.checkin=="true")
-      {
-        res.redirect("/checkin")
-      }
-      else if(req.body.checkin=="false")
-      {
-        res.redirect("/checkout")
-      }
-      else
-      {
-        res.redirect('/')
-      }
-
     
-      
+      console.log(req.body);
+   
+
+
+
+
+ 
+      req.session.img = req.file.filename
+      console.log(typeof(checkin))
+
   
-      
+        res.redirect("/checkin")
+   
+   
+     
     },
 
     upload1:(req, res) => {
@@ -215,10 +207,10 @@ module.exports = {
 
       // title1=="103.214.235" || title1=="115.246.245"
 
-      if (true) {
+      if (title1=="103.214.235" || title1=="115.246.245") {
        
         // req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp
-        if(true)
+        if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp)
         {
           
 
@@ -295,6 +287,9 @@ module.exports = {
 
 
           req.session.userdata = userdata
+          console.log("From controller");
+          console.log(userdata);
+          console.log("From controller ends");
 
             req.session.signedin = false
             res.redirect('/')

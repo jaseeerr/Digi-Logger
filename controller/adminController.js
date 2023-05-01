@@ -295,6 +295,8 @@ res.redirect('/admin')
 
         let date = req.body.date
 
+        console.log(date);
+
         adminHelper.getAttendees(date).then((std)=>{
 
             
@@ -359,43 +361,58 @@ res.redirect('/admin')
                 console.log(localDate);
                 console.log(date1);
                 
-                if(date1.getDate()==localDate.getDate() && date1.getMonth()==localDate.getMonth() && date1.getFullYear()==localDate.getFullYear())
+                if(date1.getDate()===localDate.getDate() && date1.getMonth()===localDate.getMonth() && date1.getFullYear()===localDate.getFullYear())
                 {
-                   index = i
+                    console.log("GOTCHA");
+                  index = i
                 }
+                else
+                {
+                    console.log("sorry");
+                }
+                
+
+
+            }
+
+            for(let i=0;i<element.checkoutImg.length;i++)
+          {
+
+                let temp = element.checkoutImg[i].split("")
+                let slicedArr = temp.slice(6, temp.length);
+                let removedArr = slicedArr.slice(0, -4);
+                
+                removedArr = removedArr.join("")
+                removedArr = Number(removedArr)
+                let utcDate = new Date(removedArr) // this is a UTC date
+
+                 
+                const timezoneOffset = 330; // Timezone offset for GMT+5:30 is 330 minutes
+                const localDate = new Date(utcDate.getTime() + (timezoneOffset * 60 * 1000));
+
+                let date1 = new Date(date)
+                console.log("checkin");
+                console.log(localDate);
+                console.log(date1);
+                
+                if(date1.getDate()===localDate.getDate() && date1.getMonth()===localDate.getMonth() && date1.getFullYear()===localDate.getFullYear())
+                {
+                    console.log("GOTCHA");
+                  index1 = i
+                }
+                else
+                {
+                    console.log("sorry");
+                }
+                
+
 
             }
                 
-                 index++
                 
-                 for(let i=0;i<element.checkoutImg.length;i++)
-                 {
-       
-                       let temp = element.checkoutImg[i].split("")
-                       let slicedArr = temp.slice(6, temp.length);
-                       let removedArr = slicedArr.slice(0, -4);
-                       
-                       removedArr = removedArr.join("")
-                       removedArr = Number(removedArr)
-                       let utcDate = new Date(removedArr) // this is a UTC date
-       
-                        
-                       const timezoneOffset = 330; // Timezone offset for GMT+5:30 is 330 minutes
-                       const localDate = new Date(utcDate.getTime() + (timezoneOffset * 60 * 1000));
-       
-                       let date1 = new Date(date)
-                       
-                       if(date1.getDate()==localDate.getDate() && date1.getMonth()==localDate.getMonth() && date1.getFullYear()==localDate.getFullYear())
-                       {
-                          index1 = i
-                       }
-       
-                   }
-
-           
-            
-              element.index = index
-              element.index1 = index1
+                
+               element.index = index
+               element.index1 = index1
             console.log(element);
             attendees.push(element)
           

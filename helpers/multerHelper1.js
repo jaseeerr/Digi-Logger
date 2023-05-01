@@ -9,7 +9,7 @@ let Storage=multer.diskStorage({
 
         console.log("MULTER DATA ENDS");
 
-        cb(null,'public/images/attendees/checkin')
+        cb(null,'public/images/attendees/checkout')
     },
     filename:function(req,file,cb){
         
