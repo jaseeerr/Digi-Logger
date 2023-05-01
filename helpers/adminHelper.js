@@ -420,5 +420,79 @@ module.exports = {
       })
 
 
+    },
+
+    getAttendees:(date11)=>{
+        return new Promise((resolve, reject) => {
+
+            function isBeforeNineThirtyAMToday(date) {
+                // Get the current date
+                date = new Date(date)
+                const currentDate = new Date(date11);
+              
+                // Set the current date time to 9:30 AM
+                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 9, 30);
+              
+                // Check if the input date is before the current date time, on the same day and same month
+                return date.getTime() < currentDateTime.getTime() && 
+                       date.getDate() === currentDate.getDate() &&
+                       date.getMonth() === currentDate.getMonth();
+              }
+              
+             let list = []
+             let std = []
+             let img = []
+            Attendance.find({}).then((data)=>{
+
+                
+                data.forEach(element => {
+                    let lastin = element.checkin[element.checkin.length-1]
+
+                    
+                    if(isBeforeNineThirtyAMToday(lastin))
+                    {
+                        list.push(element.sid)
+                    }
+                    
+                });
+                if(list.length==0)
+                {
+                    resolve(std)
+                }
+
+                list.forEach(element => {
+
+                    User.findById(element).then((data1)=>{
+
+                        std.push(data1)
+                       
+
+
+                    }).then(()=>{
+
+                        
+                        if(list.length==std.length)
+                            {
+                              
+                            
+
+                                resolve(std)
+                            }
+
+
+                        
+
+                    })
+                    
+                });
+
+               
+
+                
+
+
+
+            })
+        })
     }
 }

@@ -65,6 +65,48 @@ module.exports = {
     },
 
 
+    upload:(req, res) => {
+
+
+      console.log("BODYYYDATAAAA");
+      console.log(req.body);
+      console.log(req.body.checkin);
+
+      console.log(req.file)
+      req.session.img = req.file.filename
+      console.log(typeof(req.body.checkin))
+
+      if(req.body.checkin=="true")
+      {
+        res.redirect("/checkin")
+      }
+      else if(req.body.checkin=="false")
+      {
+        res.redirect("/checkout")
+      }
+      else
+      {
+        res.redirect('/')
+      }
+
+    
+      
+  
+      
+    },
+
+    upload1:(req, res) => {
+
+      console.log(req.file)
+      req.session.img = req.file.filename
+
+    
+      
+  
+      res.redirect("/checkout")
+    },
+
+
     login: (req, res) => {
 
         if (req.session.user) {
@@ -157,6 +199,8 @@ module.exports = {
 
     checkin: (req, res) => {
 
+
+      let img = req.session.img
         
        
               
@@ -188,7 +232,7 @@ module.exports = {
       
        
 
-        userHelper.checkin(data).then((userdata) => {
+        userHelper.checkin(data,img).then((userdata) => {
 
           if(userdata)
           {
@@ -245,8 +289,10 @@ module.exports = {
             date: date,
             sid: req.session.userdata._id
         }
+        let img = req.session.img
 
-        userHelper.checkout(data).then((userdata) => {
+        userHelper.checkout(data,img).then((userdata) => {
+
 
           req.session.userdata = userdata
 

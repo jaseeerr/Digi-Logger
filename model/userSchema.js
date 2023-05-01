@@ -10,6 +10,8 @@ const signupSchema = new Schema({
     dev1:String,
     dev2:String,
     checkin:Boolean,
+    checkinImg:Array,
+    checkoutImg:Array,
     block:Boolean
    
 })

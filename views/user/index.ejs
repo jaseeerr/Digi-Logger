@@ -34,6 +34,15 @@
     }
   </style>
 
+
+<!-- capture -->
+<div id="app"></div>
+
+<button id="capture-button" hidden>Capture Photo</button>
+<canvas id="photo-canvas" style="display: none;"></canvas>
+
+<!-- capture -->
+
   <% if (thisfp) { %>
  <input type="hidden" id="thisfp" value="1">
  <% } else { %>
@@ -98,11 +107,11 @@
         </div>
         <div>
           <% if (signedin) { %>
-            <a href="#" onclick="checkout()" class="btn btn-primary" style="background-color:#0e4d92;" ><i class="text-muted material-icons md-login"></i>CHECK-OUT</a>
+            <a onclick="run(false)" class="btn btn-primary" style="background-color:#0e4d92;" ><i class="text-muted material-icons md-login"></i>CHECK-OUT</a>
             <% } else if (!signedin && userdata.dev1 && userdata.dev2) { %>
               <% if (userdata.dev1==thisfp || userdata.dev2==thisfp) { %>
                
-                <a href="/checkin" class="btn btn-primary" style="background-color:#0e4d92;"><i class="text-muted material-icons md-login"></i>CHECK-IN</a>
+                <a onclick="run(true)" class="btn btn-primary" style="background-color:#0e4d92;"><i class="text-muted material-icons md-login"></i>CHECK-IN</a>
 
               <% } %>
               <% } %>
@@ -221,6 +230,108 @@
 
 <script src="/javascripts/fp.js"></script>
 
+
+<script>
+
+
+
+
+  let checkin
+
+  function run(checkin1)
+  {
+    if(checkin1)
+    {
+      checkin = true
+    }
+    else
+    {
+      checkin = false
+    }
+    const myButton = document.getElementById('capture-button');
+
+    console.log(checkin);
+        myButton.click();
+  }
+
+      
+  
+  
+  
+  
+  
+  
+        const captureButton = document.getElementById('capture-button');
+  const photoCanvas = document.getElementById('photo-canvas');
+  const context = photoCanvas.getContext('2d');
+  
+  captureButton.addEventListener('click', () => {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } })
+      .then((stream) => {
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        video.play();
+        video.addEventListener('loadedmetadata', () => {
+          photoCanvas.width = video.videoWidth;
+          photoCanvas.height = video.videoHeight;
+          context.drawImage(video, 0, 0, photoCanvas.width, photoCanvas.height);
+          const dataUrl = photoCanvas.toDataURL('image/jpeg', 0.8);
+          
+          sendPhoto(dataUrl);
+          stream.getTracks().forEach(track => track.stop());
+        });
+      })
+      .catch((err) => {
+        window.alert("COULDN'T CAPTURE PHOTO, ALLOW CAMERA PERMISSION TO CHECK-IN.")
+        location.href = "/"
+        console.error('Camera access denied:', err);
+      });
+  });
+  
+  function sendPhoto(photoDataUrl) {
+    const formData = new FormData();
+    const blob = dataURItoBlob(photoDataUrl);
+    formData.append('photo', blob);
+    formData.append('checkin', checkin);
+  
+    fetch('/upload', {
+      method: 'POST',
+      body: formData
+    })
+    .then((response) => {
+      if (!response.ok) {
+        window.alert("COULDN'T CAPTURE PHOTO")
+        location.href = "/"
+        throw new Error('Failed to upload photo');
+      }
+      console.log('Photo uploaded successfully');
+      location.href = "/checkin"
+    })
+    .catch((err) => {
+      console.error('Failed to upload photo:', err);
+      window.alert("COULDN'T CAPTURE PHOTO")
+        location.href = "/"
+    });
+  }
+  
+  function dataURItoBlob(dataURI) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
+  }
+  
+  
+      </script>
+
+
+
+
+      
 
 
   <%- include('../partials/footer') %>

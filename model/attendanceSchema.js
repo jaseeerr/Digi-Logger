@@ -6,6 +6,8 @@ const attendanceSchema = new Schema({
     sid:String,
     checkin:Array,
     checkout:Array,
+    checkinImg:String,
+    checkoutImg:String,
     attendance:Number,
     limit:Number,
     limitexpire:Date

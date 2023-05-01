@@ -1,3 +1,4 @@
+const { set } = require('mongoose')
 const adminHelper = require('../helpers/adminHelper')
 const userHelper = require('../helpers/userhelper')
 
@@ -271,6 +272,142 @@ res.redirect('/admin')
        
      
 
+
+    },
+
+
+    attendees:(req,res)=>{
+
+         let date =   req.session.of1 
+         let batches =  req.session.attendeesbatch 
+
+         console.log(batches);
+
+
+            res.render('admin/attendees',{batches,date})
+
+      
+
+        
+    },
+
+    getcustomattendees:(req,res)=>{
+
+        let date = req.body.date
+
+        adminHelper.getAttendees(date).then((std)=>{
+
+            
+
+            console.log(std);
+            let temp = []
+          
+
+            std.forEach(element => {
+
+                temp.push(element.batch)
+                
+            });
+
+            const temp1 = new Set(temp);
+
+           let  batches = Array.from(temp1);
+
+           req.session.attendees = std
+           req.session.of1 = date
+           req.session.attendeesbatch = batches
+
+            res.redirect('/admin/attendees')
+
+        })
+
+    },
+
+    attendeesgrid:(req,res)=>{
+
+        let id = req.params.id
+        
+
+       let date=  req.session.of1
+      let temp =  req.session.attendees
+      let attendees = []
+
+      temp.forEach(element => {
+
+        if(element.batch==id)
+        {
+            let index = -1 
+            let index1 = -1
+           
+          for(let i=0;i<element.checkinImg.length;i++)
+          {
+
+                let temp = element.checkinImg[i].split("")
+                let slicedArr = temp.slice(6, temp.length);
+                let removedArr = slicedArr.slice(0, -4);
+                
+                removedArr = removedArr.join("")
+                removedArr = Number(removedArr)
+                let utcDate = new Date(removedArr) // this is a UTC date
+
+                 
+                const timezoneOffset = 330; // Timezone offset for GMT+5:30 is 330 minutes
+                const localDate = new Date(utcDate.getTime() + (timezoneOffset * 60 * 1000));
+
+                let date1 = new Date(date)
+                console.log("checkin");
+                console.log(localDate);
+                console.log(date1);
+                
+                if(date1.getDate()==localDate.getDate() && date1.getMonth()==localDate.getMonth() && date1.getFullYear()==localDate.getFullYear())
+                {
+                   index = i
+                }
+
+            }
+                
+                 index++
+                
+                 for(let i=0;i<element.checkoutImg.length;i++)
+                 {
+       
+                       let temp = element.checkoutImg[i].split("")
+                       let slicedArr = temp.slice(6, temp.length);
+                       let removedArr = slicedArr.slice(0, -4);
+                       
+                       removedArr = removedArr.join("")
+                       removedArr = Number(removedArr)
+                       let utcDate = new Date(removedArr) // this is a UTC date
+       
+                        
+                       const timezoneOffset = 330; // Timezone offset for GMT+5:30 is 330 minutes
+                       const localDate = new Date(utcDate.getTime() + (timezoneOffset * 60 * 1000));
+       
+                       let date1 = new Date(date)
+                       
+                       if(date1.getDate()==localDate.getDate() && date1.getMonth()==localDate.getMonth() && date1.getFullYear()==localDate.getFullYear())
+                       {
+                          index1 = i
+                       }
+       
+                   }
+
+           
+            
+              element.index = index
+              element.index1 = index1
+            console.log(element);
+            attendees.push(element)
+          
+        }
+        
+      });
+
+
+      
+
+
+        res.render('admin/attendeesgrid',{date,attendees})
 
     },
 

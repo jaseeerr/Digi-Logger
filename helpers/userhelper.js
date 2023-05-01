@@ -95,96 +95,121 @@ module.exports = {
 
     },
 
-    checkin:(data1)=>{
+    checkin:(data1,img)=>{
         return new Promise((resolve, reject) => {
 
-            Attendance.findOne({sid:data1.sid}).then((data2)=>{
+            User.findById(data1.sid).then((user)=>{
 
                 
+            let image = user.checkinImg
+            image.push(img)
 
-
-                if(!data2)
-                {
-                    let arr = []
-                     arr[0] = data1.date
-                    
-
-                     const attend = new Attendance({
-        
-                        
-                        sid:data1.sid,
-                        checkin:arr,
-                        limit:1,
-                        
-                        
-                        
-        
-                    })
-        
-                    attend.save().then((data)=>{resolve(data)})
-                }
-                else
-                {
-                    let lastin = data2.checkin[data2.checkin.length-1]
-                    let current = data1.date
-                   
- 
-
-                    if(lastin.getDate()==current.getDate() && lastin.getMonth==current.getMonth && lastin.getFullYear == current.getFullYear)
-                    {
-                        userdata = false
-                        resolve(userdata)
+                User.findByIdAndUpdate(data1.sid,{
+                    $set:{
+                        checkinImg:image
                     }
-                    else
-                    {
-                    let arr = data2.checkin
-                    let limit = data2.limit +1
-
-                    let attend1 = data2.attendance
+                }).then(()=>{
+    
+    
+                    Attendance.findOne({sid:data1.sid}).then((data2)=>{
+    
                     
-                    
-                    
-                    arr.push(data1.date)
-
-                 
-
-                    Attendance.findByIdAndUpdate(data2._id,{
-                        $set:{
-                            checkin:arr,
-                            limit:limit
+    
+    
+                        if(!data2)
+                        {
+                            let arr = []
+                             arr[0] = data1.date
+                            
+        
+                             const attend = new Attendance({
+                
+                                
+                                sid:data1.sid,
+                                checkin:arr,
+                                limit:1,
+                                
+                                
+                                
+                                
+                
+                            })
+                
+                            attend.save().then((data)=>{resolve(data)})
                         }
-                    }).then(()=>{
-
-                        User.findByIdAndUpdate(data1.sid,{
-                            $set:{
-                                checkin:true
-                            }
-                        }).then(()=>{
-
-                           User.findById(data1.sid).then((userdata1)=>{
-
+                        else
+                        {
+                            let lastin = data2.checkin[data2.checkin.length-1]
+                            let current = data1.date
                            
-                            resolve(userdata1)
-                           })
-
+         
+        
+                            if(lastin.getDate()==current.getDate() && lastin.getMonth==current.getMonth && lastin.getFullYear == current.getFullYear)
+                            {
+                                userdata = false
+                                resolve(userdata)
+                            }
+                            else
+                            {
+                            let arr = data2.checkin
+                            let limit = data2.limit +1
+        
+                            let attend1 = data2.attendance
+                            
+                            
+                            
+                            arr.push(data1.date)
+        
                          
-                        })
-
-                      
+        
+                            Attendance.findByIdAndUpdate(data2._id,{
+                                $set:{
+                                    checkin:arr,
+                                    limit:limit,
+                                   
+                                }
+                            }).then(()=>{
+        
+                                User.findByIdAndUpdate(data1.sid,{
+                                    $set:{
+                                        checkin:true
+                                    }
+                                }).then(()=>{
+        
+                                   User.findById(data1.sid).then((userdata1)=>{
+        
+                                   
+                                    resolve(userdata1)
+                                   })
+        
+                                 
+                                })
+        
+                              
+                                
+                                
+                            })
+                            }
+        
+                            
+                        }
+         
                         
+        
                         
+        
                     })
-                    }
-
-                    
-                }
- 
-                
-
-                
+    
+    
+    
+    
+                })
+    
 
             })
 
+
+            
 
             
             
@@ -193,7 +218,7 @@ module.exports = {
     },
 
 
-    checkout:(data1)=>{
+    checkout:(data1,img)=>{
         return new Promise((resolve, reject) => {
 
             function isBefore5_30pm(date) {
@@ -278,7 +303,8 @@ module.exports = {
 
                     User.findByIdAndUpdate(data1.sid,{
                         $set:{
-                            checkin:false
+                            checkin:false,
+                            checkoutImg:img
                         }
                     }).then(()=>{
                         User.findById(data1.sid).then((userdata)=>{

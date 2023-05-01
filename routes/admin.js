@@ -43,6 +43,16 @@ router.get('/details/:id',adminAuth.adminAuthentication,adminController.details)
 /* GET logout */
 router.get('/logout',adminAuth.adminAuthentication,adminController.logout)
 
+/* GET attendees. */
+router.get('/attendees',adminAuth.adminAuthentication,adminController.attendees)
+
+/* POST getcustomattendees. */
+router.post('/getcustomattendees',adminAuth.adminAuthentication,adminController.getcustomattendees)
+
+/* POST getcustomattendees. */
+router.get('/attendeesgrid/:id',adminAuth.adminAuthentication,adminController.attendeesgrid)
+
+
 
 
 ///////////////

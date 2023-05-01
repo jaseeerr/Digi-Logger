@@ -1,0 +1,55 @@
+<%- include('../partials/admin-header') %>
+
+<section>
+   
+    <!--End nav-tabs-->
+        <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
+            <div class="row product-grid-4">
+                <% attendees.forEach(element => { %>
+                <div class="col-lg-4 col-md-4 col-12 col-sm-6">
+                    
+ 
+
+                    <div class="card">
+                        <div class="card-images">
+                          <img src="/images/attendees/<%=element.checkinImg[element.index] %>" alt="Image 1">
+                          <img src="/images/attendees/<%=element.checkoutImg[element.index1] %>" alt="Image 2">
+                        </div>
+                        <div class="card-content">
+                          <h5>Heading 5</h5>
+                          <h4>Heading 4</h4>
+                          <h3>Heading 3</h3>
+                        </div>
+                      </div>
+                  
+
+                </div>
+                <% }) %>
+               
+               
+               
+               
+              
+              
+            </div>
+            <!--End product-grid-4-->
+        </div>
+
+
+
+
+
+</section>
+
+
+<script>
+    $(document).ready(function() {
+  $("#myImg").mouseover(function() {
+    $(this).attr("src", "image2.jpg");
+  });
+  $("#myImg").mouseout(function() {
+    $(this).attr("src", "image1.jpg");
+  });
+});
+</script>
+<%- include('../partials/footer') %>
