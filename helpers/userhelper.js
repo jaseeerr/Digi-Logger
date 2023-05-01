@@ -282,7 +282,9 @@ module.exports = {
                             let del = img1[img1.length-1]
 
 
-                            const filePath = path.join(__dirname, '..', 'public', 'images', 'attendees', del);
+
+                            const filePath = path.join(__dirname, '..', 'public', 'images', 'attendees','checkin', del);
+                            const filePath1 = path.join(__dirname, '..', 'public', 'images', 'attendees','checkout', img);
 
                             fs.unlink(filePath, (err) => {
                                 if (err) {
@@ -291,6 +293,15 @@ module.exports = {
                                 }
                                 
                                 console.log('File deleted successfully'+del);
+                              });
+
+                              fs.unlink(filePath1, (err) => {
+                                if (err) {
+                                  console.error(err);
+                                  return;
+                                }
+                                
+                                console.log('File deleted successfully'+img);
                               });
 
 
