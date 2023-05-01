@@ -18,11 +18,11 @@
         <div class="col-lg-5">
             <div class="card mb-4">
                 <article class="card-body" style="overflow-y: auto; max-height: 250px;">
-                    <div style="position: fixed;z-index: 999;background-color: rgb(255, 255, 255);width: max-content;">
-                        <h5 class="card-title" style="padding-right: 250px;" >Today's Absentees</h5>
+                    <div >
+                        <h5 class="card-title" >Today's Absentees</h5>
                     </div>
                    
-                    <hr style="margin-bottom: 20px;margin-top: 40px;">
+                    <hr>
                     <% if (todays.length==0) { %>
                      <h6>NO DATA FOUND</h6>
 
@@ -44,6 +44,10 @@
                                     <a href="/admin/details/<%=element._id %>" class="btn btn-xs"><i class="material-icons md-add"></i> View</a>
                                 </div>
                             <% }) %>
+
+                            
+
+                            
                             <% } %>
                     
                     </div>
@@ -61,11 +65,11 @@
         <div class="col-lg-5">
             <div class="card mb-4">
                 <article class="card-body" style="overflow-y: auto; max-height: 250px;">
-                    <div style="position: fixed;z-index: 999;background-color: rgb(255, 255, 255);width: max-content;">
-                        <h5 class="card-title" style="padding-right: 250px;" >Frequent Absentees</h5>
+                    <div >
+                        <h5 class="card-title"  >Frequent Absentees</h5>
                     </div>
                    
-                    <hr style="margin-bottom: 20px;margin-top: 40px;">
+                    <hr>
                     <div class="new-member-list">
 
                         <% data.forEach(element => { %>
@@ -93,11 +97,11 @@
         <div class="col-lg-5">
             <div class="card mb-4">
                 <article class="card-body" style="overflow-y: auto; max-height: 250px;">
-                    <div style="position: fixed;z-index: 999;background-color: rgb(255, 255, 255);width: max-content;">
-                        <h5 class="card-title" style="padding-right: 250px;" >Batches</h5>
+                    <div >
+                        <h5 class="card-title"  >Batches</h5>
                     </div>
                    
-                    <hr style="margin-bottom: 20px;margin-top: 40px;">
+                    <hr>
                     <% if (batches.length==0) { %>
                      <h6>NO DATA FOUND</h6>
 
