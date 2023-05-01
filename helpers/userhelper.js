@@ -225,7 +225,11 @@ module.exports = {
 
             function isBefore5_30pm(date) {
                 // Set the target time as 5:30 PM
-                const targetTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12, 00, 0);
+                const targetTime = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 17, 30, 0);
+
+                console.log("CHECKOUTIMEE");
+                console.log(targetTime);
+                console.log(date);
                 
                 // Compare the given time with the target time
                 if(date.getTime() < targetTime.getTime())
@@ -259,7 +263,7 @@ module.exports = {
                 }
                 else
                 {
-                    if(isBefore5_30pm(out))
+                    if(!isBefore5_30pm(out))
                     {
                         
 
