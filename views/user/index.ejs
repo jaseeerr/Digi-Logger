@@ -107,7 +107,9 @@
         </div>
         <div>
           <% if (signedin) { %>
+            <% if (userdata.dev1==thisfp || userdata.dev2==thisfp) { %>
             <a onclick="run(false)" class="btn btn-primary" style="background-color:#0e4d92;" ><i class="text-muted material-icons md-login"></i>CHECK-OUT</a>
+            <% } %>
             <% } else if (!signedin && userdata.dev1 && userdata.dev2) { %>
               <% if (userdata.dev1==thisfp || userdata.dev2==thisfp) { %>
                
