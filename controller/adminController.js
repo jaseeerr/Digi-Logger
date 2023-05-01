@@ -435,7 +435,6 @@ res.redirect('/admin')
     attendeestable:(req,res)=>{
 
         let data = req.session.attendeestable
-        console.log(data);
         let date = req.session.of1
 
         res.render('admin/attendeespdf',{data,date})
