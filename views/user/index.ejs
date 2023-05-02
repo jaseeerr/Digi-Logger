@@ -261,6 +261,10 @@
       date.getHours(17,30,0,0)
       let now = new Date()
       checkin2 = false
+
+      console.log(date.getTime());
+      console.log(now.getTime());
+      
       if(now.getTime()<date.getTime())
       {
         if(window.confirm("Checking out before 5:30 will be marked as absent.Click ok to confirm and checkout."))
