@@ -257,7 +257,31 @@
     }
     else
     {
+      let date = new Date
+      date.getHours(17,0,0,0)
+      let now = new Date()
       checkin2 = false
+      if(now<date)
+      {
+        if(window.confirm("Checking out before 5:30 will be marked as absent.Click ok to confirm and checkout."))
+      {
+        checkin = ""
+      }
+      else
+      {
+        return
+      }
+      }
+      {
+        if(window.confirm("Click on to checkout."))
+      {
+        checkin = ""
+      }
+      else
+      {
+        return
+      }
+      }
       if(window.confirm("Are you sure?"))
       {
         checkin = ""
