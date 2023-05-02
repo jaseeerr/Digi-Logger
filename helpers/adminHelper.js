@@ -522,15 +522,27 @@ module.exports = {
 
     removeattendance:(id)=>{
 
+       return new Promise((resolve, reject) => {
+        
         Attendance.findOne({sid:id}).then((data)=>{
 
-            let checkin = data.checkin
-            checkin.pop()
+            let checkin1 = data.checkin
+            let checkout1 = data.checkout
+            checkin1.pop()
+            let lastin = checkin1[checkin1.length-1]
+            let lastout = checkout1[checkout1.length-1]
+
+            if(lastin.getDate() === lastout.getDate() && lastin.getMonth()===lastout.getMonth() && lastin.getFullYear()===lastout.getFullYear() )
+            {
+                checkout.pop()
+            }
+
 
             console.log("ABSENT");
             Attendance.findByIdAndUpdate(data._id,{
                 $set:{
-                    checkin:checkin
+                    checkin:checkin1,
+                    checkout:checkout1
                 }
             }).then(()=>{
                 User.findById(data.sid).then((data3)=>{
@@ -596,5 +608,6 @@ module.exports = {
            
        
 
+       })
     }
 }

@@ -23,7 +23,7 @@ td, th {
 <center>
   <input type="hidden" id="batch" value="<%=data[0].batch %>">
     <h5>Attendees of <%=date %></h5>
-    <% data.forEach(element => { %>
+  
      
         <table id="printTable">
            <tr>
@@ -32,12 +32,14 @@ td, th {
             <th>Phone</th>
             <th>Domain</th>
            </tr>
+           <% data.forEach(element => { %>
            <tr>
             <td><%=element.name %></td>
             <td><%=element.batch %></td>
             <td><%=element.phone %></td>
             <td><%=element.domain %></td>
            </tr>
+           <% }) %>
         </table>
 
         <button id="printButton" onclick="print()">Download as pdf</button>
@@ -48,7 +50,7 @@ td, th {
  
 
 
-<% }) %>
+
 </center>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
