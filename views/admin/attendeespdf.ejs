@@ -21,9 +21,10 @@ td, th {
 </head>
 <body>
 <center>
+  <input type="hidden" id="batch" value="<%=data[0].batch %>">
     <h5>Attendees of <%=date %></h5>
     <% data.forEach(element => { %>
-      
+     
         <table id="printTable">
            <tr>
             <th>Name</th>
@@ -55,13 +56,19 @@ td, th {
 
 
 <script>
+
+let x = new Date()
+x = "0"+x.getDate() + "-0" + x.getMonth() +"-"+ x.getFullYear()
+let batch = document.getElementById('batch').value
+
+
 window.jsPDF = window.jspdf.jsPDF;
 var docPDF = new jsPDF();
 function print(){
 var elementHTML = document.querySelector("#printTable");
 docPDF.html(elementHTML, {
  callback: function(docPDF) {
-  docPDF.save('HTML Linuxhint web page.pdf');
+  docPDF.save( `Attendance of ${x}_${batch}.pdf`);
  },
  x: 15,
  y: 15,

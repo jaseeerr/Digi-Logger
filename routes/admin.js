@@ -55,6 +55,9 @@ router.post('/getcustomattendees',adminAuth.adminAuthentication,adminController.
 /* POST getcustomattendees. */
 router.get('/attendeesgrid/:id',adminAuth.adminAuthentication,adminController.attendeesgrid)
 
+/* GET removeattendance. */
+router.get('/removeattendance/:id',adminAuth.adminAuthentication,adminController.removeattendance)
+
 
 
 

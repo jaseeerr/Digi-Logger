@@ -441,6 +441,21 @@ res.redirect('/admin')
 
     },
 
+    removeattendance:(req,res)=>{
+
+        const previousUrl = req.header('Referer');
+
+        adminHelper.removeattendance(req.params.id).then((userdata)=>{
+  
+          req.session.attendanceremoved = true
+
+          res.redirect(previousUrl)
+
+        })
+      },
+
+    
+
     logout:(req,res)=>{
 
         req.session.admin = false

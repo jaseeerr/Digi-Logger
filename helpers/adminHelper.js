@@ -517,5 +517,84 @@ module.exports = {
 
             })
         })
+    },
+
+
+    removeattendance:(id)=>{
+
+        Attendance.findOne({sid:id}).then((data)=>{
+
+            let checkin = data.checkin
+            checkin.pop()
+
+            console.log("ABSENT");
+            Attendance.findByIdAndUpdate(data._id,{
+                $set:{
+                    checkin:checkin
+                }
+            }).then(()=>{
+                User.findById(data.sid).then((data3)=>{
+
+                    let img1 = data3.checkinImg
+                    let del = img1[img1.length-1]
+                    let img2 = data3.checkoutImg
+                    let del1 = img2[img2.length-1]
+
+
+
+                    const filePath = path.join(__dirname, '..', 'public', 'images', 'attendees','checkin', del);
+                    const filePath1 = path.join(__dirname, '..', 'public', 'images', 'attendees','checkout', del1);
+
+                    fs.unlink(filePath, (err) => {
+                        if (err) {
+                          console.error(err);
+                          return;
+                        }
+                        
+                        console.log('File deleted successfully'+del);
+                      });
+
+                      fs.unlink(filePath1, (err) => {
+                        if (err) {
+                          console.error(err);
+                          return;
+                        }
+                        
+                        console.log('File deleted successfully'+img);
+                      });
+
+
+                    img1.pop()
+                   if(del1)
+                   {
+                    img2.pop()
+                   }
+                    
+                    User.findByIdAndUpdate(data1.sid,{
+                        $set:{
+                            checkin:false,
+                            checkinImg:img1,
+                            checkoutImg:img2
+                        }
+                    }).then(()=>{
+                        User.findById(data.sid).then((userdata1)=>{
+
+                            resolve(userdata1)
+
+                        })
+                    })
+
+                })
+
+                
+                
+            })
+
+        })
+
+      
+           
+       
+
     }
 }
