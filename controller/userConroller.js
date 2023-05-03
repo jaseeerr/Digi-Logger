@@ -216,7 +216,7 @@ module.exports = {
       if (true) {
        
         // req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp
-        if(true )
+        if(true)
         {
           
 

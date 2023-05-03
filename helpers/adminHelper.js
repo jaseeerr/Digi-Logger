@@ -286,30 +286,28 @@ module.exports = {
         })
     },
 
-    getTodayabsentBydate:(date1)=>{
+    getTodayabsentBydate:(date11)=>{
 
         return new Promise((resolve, reject) => {
 
-            function isBeforeToday9AM(date,date1) {
-                const now = new Date();
+            function isBeforeNineThirtyAMToday(date) {
+                // Get the current date
+                date = new Date(date)
+                const currentDate = new Date(date11);
+
                
-                let date2 = new Date(date1)
-               
-                if (date.getDate() !== date2.getDate()) {
-                   
-                    // check if the day is not the same as today's day
-                  return true;
-                }
-                
-                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0, 0); // set time to today 9:00 AM
-                if(date.getTime() < today9AM.getTime())
-                {
-                    return true
-                }
-                else 
-                {
-                    return false
-                }
+
+              
+                // Set the current date time to 9:30 AM
+                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 9, 0);
+
+                console.log("selected date:  "+currentDateTime);
+                console.log("incoming:  "+date);
+              
+                // Check if the input date is before the current date time, on the same day and same month
+                return date.getTime() < currentDateTime.getTime() && 
+                       date.getDate() === currentDate.getDate() &&
+                       date.getMonth() === currentDate.getMonth();
               }
             
 
@@ -321,24 +319,68 @@ module.exports = {
 
                 data.forEach(element => {
 
-                    let last = element.checkin[element.checkin.length-1]
+                    // let last = element.checkin[element.checkin.length-1]
 
-                    if(last==undefined)
+                    if(element.checkin.length==0)
                     {
-                        list.push(element.sid)
+                       console.log("CAUGHT");
+                       list.push(element.sid)
                     }
-                    else
-                    {
-                        let time  = last.getTime()
+                    
+
+                    // if(last==undefined)
+                    // {
+                    //     list.push(element.sid)
+                    // }
+                    // else
+                    // {
+                    //     let time  = last.getTime()
                    
-                        if(isBeforeToday9AM(last,date1))
-                        {
+                    //     if(!isBeforeToday9AM(last,date1))
+                    //     {
                         
-                         list.push(element.sid)
+                    //      list.push(element.sid)
+                    //     }
+                    // }   
+
+
+
+                    element.checkin.forEach(element1 => {
+
+                        console.log("CAUGHT1");
+                        console.log(element1);
+
+                        let lastin = new Date(element1)
+                        let current = new Date(date11)
+                         if(!element1)
+                         {
+                            console.log("CAUGHT");
+                            list.push(element.sid)
+                         }
+                       
+
+                        if(lastin.getFullYear()===current.getFullYear() && lastin.getMonth()===current.getMonth() && lastin.getDate()===lastin.getDate() )
+                        {
+                            console.log("DATE:: ",lastin);
+                            console.log(current);
+                            console.log(lastin);
+                            if(!isBeforeNineThirtyAMToday(lastin))
+                            {
+                                list.push(element.sid)
+                            }
                         }
-                    }   
+                        else
+                        {
+                            list.push(element.sid)
+                        }
+
+                        
+                    });
                      
                 })
+
+
+                
                 if(list.length==0)
                 {
                    

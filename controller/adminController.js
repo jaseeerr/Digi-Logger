@@ -122,7 +122,19 @@ res.redirect('/admin')
             
         });
 
+        req.session.absenteestable = data
+        req.session.of2 = date
+
         res.render('admin/absenttable',{data,date,id})
+
+    },
+
+    absenteestable:(req,res)=>{
+
+        let date = req.session.of2
+        let data = req.session.absenteestable
+
+        res.render('admin/absenteespdf',{data,date})
 
     },
 
@@ -442,6 +454,8 @@ res.redirect('/admin')
         res.render('admin/attendeespdf',{data,date})
 
     },
+
+   
 
     removeattendance:(req,res)=>{
 
