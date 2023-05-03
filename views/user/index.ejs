@@ -73,17 +73,34 @@
     <!--  -->
    <div class="overlay" style="background-color: rgba(0, 0, 0, 0.36);"></div>
    <div class="center" >
-     <center><h5>THIS DEVICE IS SUCCESSFULLY LINKED TO YOUR ACCOUNT</h5></center> 
-     <br>
-      <h6>Now login from your second device and link that device to continue. <br> Refresh this page after linking the second device.</h6>
-     <p>You can only link 2 devices and won't be able to check-in without linking your devices</p>
-     
-     
-     
-       <br>
+
+    <% if (thisfp==userdata.dev1) { %>
+      <center><h5>THIS DEVICE IS SUCCESSFULLY LINKED TO YOUR ACCOUNT</h5></center> 
+      <br>
+       <h6>Now login from your second device and link that device to continue. <br> Refresh this page after linking the second device.</h6>
+      <p>You can only link 2 devices and won't be able to check-in without linking your devices</p>
       
-          <center><button class="btn bg-primary-light"><a href="/logout">LOGOUT</a></button></center>
       
+      
+        <br>
+       
+           <center><button class="btn bg-primary-light"><a href="/logout">LOGOUT</a></button></center> 
+     <% } else { %>
+      
+      <center><h5>YOU HAVEN'T LINKED THIS DEVICE YET!</h5></center> 
+      <br>
+       <h6>Link the device to continue. <br> Make sure it's your own devices that you are linking to your account.</h6>
+      <p>You will only be able to check-in from these linked devices.</p>
+      
+      
+      
+        <br>
+       
+           <center><button class="btn bg-primary-light"><a href="/logout">LOGOUT</a></button></center> 
+
+
+    <% } %>
+    
     
    
    </div>
