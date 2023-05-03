@@ -204,7 +204,7 @@ module.exports = {
                   return true;
                 }
                 
-                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 3, 30, 0, 0); // set time to today 9:00 AM
+                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0, 0); // set time to today 9:00 AM
                 if(date.getTime() < today9AM.getTime())
                 {
                     return true
@@ -234,7 +234,7 @@ module.exports = {
                     {
                         let time  = last.getTime()
                    
-                        if(isBeforeToday9AM(last))
+                        if(!isBeforeToday9AM(last))
                         {
                         
                          list.push(element.sid)
@@ -301,7 +301,7 @@ module.exports = {
                   return true;
                 }
                 
-                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 3, 30, 0, 0); // set time to today 9:00 AM
+                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0, 0); // set time to today 9:00 AM
                 if(date.getTime() < today9AM.getTime())
                 {
                     return true
@@ -331,7 +331,7 @@ module.exports = {
                     {
                         let time  = last.getTime()
                    
-                        if(isBeforeToday9AM(last,date1))
+                        if(!isBeforeToday9AM(last,date1))
                         {
                         
                          list.push(element.sid)
@@ -377,12 +377,11 @@ module.exports = {
         let userdata = req.session.superuserdata
         let id = req.params.id
    
-        userHelper.checkattendance(id).then((data1)=>{
+        
 
 
 
       
-        userHelper.checklate(id).then((late) => { 
 
 
           userHelper.graphdata(id).then((graphdata)=>{
@@ -416,8 +415,8 @@ module.exports = {
           
 
 
-        })
-      })
+    
+   
 
 
     },

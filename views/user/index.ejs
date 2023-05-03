@@ -339,6 +339,7 @@
     })
     .then((response) => {
       if (!response.ok) {
+        console.log(response);
         window.alert("COULDN'T CAPTURE PHOTO")
         location.href = "/"
         throw new Error('Failed to upload photo');

@@ -116,7 +116,7 @@ module.exports = {
                     Attendance.findOne({sid:data1.sid}).then((data2)=>{
     
                     
-    
+                   console.log(data2);
     
                         if(!data2)
                         {
@@ -143,16 +143,25 @@ module.exports = {
                         {
                             let lastin = data2.checkin[data2.checkin.length-1]
                             let current = data1.date
+
+                          
                            
          
         
-                            if(lastin.getDate()==current.getDate() && lastin.getMonth==current.getMonth && lastin.getFullYear == current.getFullYear)
+                           
+
+                            if(lastin!==undefined)
                             {
-                                userdata = false
-                                resolve(userdata)
+                                if(lastin.getDate()==current.getDate() && lastin.getMonth()==current.getMonth() && lastin.getFullYear() == current.getFullYear())
+                                {
+                                    userdata = false
+                                    resolve(userdata)
+                                }
                             }
                             else
                             {
+
+                              
                             let arr = data2.checkin
                             let limit = data2.limit +1
         
@@ -162,15 +171,19 @@ module.exports = {
                             
                             arr.push(data1.date)
         
+                            console.log("ARRRRRRRRRR");
+                            console.log(data2._id);
+                            console.log(arr);
                          
         
                             Attendance.findByIdAndUpdate(data2._id,{
                                 $set:{
-                                    checkin:arr,
-                                    limit:limit,
+                                    checkin:arr
+                                    
                                    
                                 }
                             }).then(()=>{
+                                console.log("HERERERE");
         
                                 User.findByIdAndUpdate(data1.sid,{
                                     $set:{
@@ -555,27 +568,114 @@ module.exports = {
 
                  const arr4 = [...new Set(arr3)];
 
-              
+                 let jan = []
+                 let feb = []
+                 let mar = []
+                 let apr = []
+                 let may = []
+                 let jun = []
+                 let jul = []
+                 let aug = []
+                 let sep = []
+                 let oct = []
+                 let nov = []
+                 let dec = []
+
+                 arr4.forEach(element => {
+
+                    let temp = new Date(element)
+                    temp = temp.getMonth()
+                    if(temp===0)
+                    {
+                        jan.push(element)
+                    }
+                    else if(temp===1)
+                    {
+                        feb.push(element)
+                    }
+                    else if(temp===2)
+                    {
+                        mar.push(element)
+                    }
+                    else if(temp===3)
+                    {
+                        apr.push(element)
+                    }
+                    else if(temp===4)
+                    {
+                        may.push(element)
+                    }
+                    else if(temp===5)
+                    {
+                        jun.push(element)
+                    }
+                    else if(temp===6)
+                    {
+                        jul.push(element)
+                    }
+                    else if(temp===7)
+                    {
+                        aug.push(element)
+                    }
+                    else if(temp===8)
+                    {
+                        sep.push(element)
+                    }
+                    else if(temp===9)
+                    {
+                        oct.push(element)
+                    }
+                    else if(temp===10)
+                    {
+                        nov.push(element)
+                    }
+                    else if(temp===11)
+                    {
+                        dec.push(element)
+                    }
+                    
+                 });
+
+                 overall[0] = jan.length
+                 overall[1] = feb.length
+                 overall[2] = mar.length
+                 overall[3] = apr.length
+                 overall[4] = may.length
+                 overall[5] = jun.length
+                 overall[6] = jul.length
+                 overall[7] = aug.length
+                 overall[8] = sep.length
+                 overall[9] = oct.length
+                 overall[10] = nov.length
+                 overall[11] = dec.length
+
                
 
-                 for(let i=0;i<arr4.length;i++)
-                 {
-                    
-                    let counter = 0
-                    for(let j=0;j<arr4.length;j++)
-                    {
-                        let temp = new Date(arr2[j])
-                    temp = temp.getMonth()
                  
-                        if(i==temp)
-                        {
-                            counter++
-                        }
-                       
-                    }
 
-                    overall[i] = counter
-                 }
+                console.log(arr4);
+               
+
+
+                //  for(let i=0;i<arr4.length;i++)
+                //  {
+                    
+                //     let counter = 0
+                //     for(let j=0;j<arr4.length;j++)
+                //     {
+                //         let temp = new Date(arr2[j])
+                //     temp = temp.getMonth()
+                //     console.log("temp: ",temp,"\ni: ",i,"\nj: ",j);
+                 
+                //         if(i==temp)
+                //         {
+                //             counter++
+                //         }
+                       
+                //     }
+
+                //     overall[i] = counter
+                //  }
                       
 
               let present = 0
@@ -586,13 +686,16 @@ module.exports = {
               });
 
               absent = 0
-              let now = new Date
+              let now = new Date()
               let day = now+""
               day = day[8] + day[9]
               let day1 = Number(day) 
               absent = day1 - present
            
               percentage = (present/day1)*100
+
+              console.log(overall);
+              console.log(monthly);
 
 
                 resolve({monthly,overall,absent,percentage})

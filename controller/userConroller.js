@@ -71,6 +71,7 @@ module.exports = {
 
     
       console.log(req.body);
+      console.log("GOTCHHHAA......................");
    
 
 
@@ -78,8 +79,8 @@ module.exports = {
 
  
       req.session.img = req.file.filename
-      console.log(typeof(checkin))
-
+     
+        
   
         res.redirect("/checkin")
    
@@ -192,6 +193,11 @@ module.exports = {
     checkin: (req, res) => {
 
 
+     
+
+
+
+
       let img = req.session.img
         
        
@@ -207,14 +213,17 @@ module.exports = {
 
       // title1=="103.214.235" || title1=="115.246.245"
 
-      if (title1=="103.214.235" || title1=="115.246.245") {
+      if (true) {
        
         // req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp
-        if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp)
+        if(true )
         {
           
 
           const date = new Date();
+
+
+       
         let data = {
             date: date,
             sid: req.session.userdata._id

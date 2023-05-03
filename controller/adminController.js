@@ -94,6 +94,8 @@ res.redirect('/admin')
 
          adminHelper.getTodayabsentBydate(req.body.date).then((data)=>{
 
+            console.log(data);
+
            req.session.customdate = data
 
            res.redirect('/admin/customreport')
