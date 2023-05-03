@@ -135,7 +135,15 @@
 </div>
 
 <script>
+   document.getElementById('batch').onkeyup = ()=>{
 
+    
+    
+
+
+
+
+}
     
 //valid uname
    document.getElementById('uname').onkeyup = ()=>{
@@ -177,7 +185,11 @@
    //batch
    let berr = false
    document.getElementById('batch').onkeyup = ()=>{
+
+
+
     let batch = document.getElementById('batch').value
+    document.getElementById('batch').value = batch.trim()
     let batch1 = batch.split("")
     console.log(batch1.length);
 
