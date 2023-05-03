@@ -331,7 +331,7 @@ module.exports = {
                     {
                         let time  = last.getTime()
                    
-                        if(!isBeforeToday9AM(last,date1))
+                        if(isBeforeToday9AM(last,date1))
                         {
                         
                          list.push(element.sid)
