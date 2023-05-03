@@ -239,7 +239,7 @@ module.exports = {
             function isBefore5_30pm(date) {
                 // Set the target time as 5:30 PM
                 const targetTime = new Date();
-                targetTime.setHours(20, 30, 0, 0)
+                targetTime.setHours(17, 30, 0, 0)
                 targetTime.setDate(date.getDate())
 
                 console.log("CHECKOUTIMEE");
