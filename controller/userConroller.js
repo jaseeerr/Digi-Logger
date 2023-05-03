@@ -213,11 +213,10 @@ module.exports = {
 
       // title1=="103.214.235" || title1=="115.246.245"
 
-      if (title1=="103.214.235" || title1=="115.246.245"
-      ) {
+      if (title1=="103.214.235" || title1=="115.246.245") {
        
         // req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp
-        if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp )
+        if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp)
         {
           
 
