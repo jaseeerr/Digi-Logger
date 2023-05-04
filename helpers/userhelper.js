@@ -588,7 +588,7 @@ module.exports = {
 
                     let current = new Date(element)
 
-                    if(current.getTime()<current.getTime())
+                    if(current.getTime()<time.getTime())
                     {
                        
                     let temp = new Date(element)
