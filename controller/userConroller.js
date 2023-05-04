@@ -29,7 +29,7 @@ module.exports = {
       
 
       let noip = req.session.noip
-      req.session.noip = false
+     
       let ip = req.session.ip
 
         let userdata = req.session.userdata
@@ -214,6 +214,8 @@ module.exports = {
       // title1=="103.214.235" || title1=="115.246.245"
 
       if (title1=="103.214.235" || title1=="115.246.245") {
+
+        req.session.noip = false
        
         // req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp
         if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp)
