@@ -268,6 +268,8 @@ res.redirect('/admin')
                     percentage = Math.round(percentage)
         
                     let absent = graphdata.absent
+                    req.session.stdPhone = user.phone
+                    req.session.stdname = user.name
                     res.render('admin/details', {userdata, percentage, absent,daily,overall,user});
 
                
@@ -470,12 +472,38 @@ res.redirect('/admin')
         })
       },
 
+
+      markcheckin:(req,res)=>{
+
+        let id = req.params.id
+        let admin = req.session.admindata.name
+        let stdphone =  req.session.stdPhone
+        let adminphone = req.session.admindata.phone
+        let stdname =  req.session.stdname
+
+        const previousUrl = req.header('Referer');
+
+        adminHelper.markchekcin(id,admin,stdphone,adminphone,stdname).then(()=>{
+
+            res.redirect(previousUrl)
+
+
+        })
+
+        
+
+
+        
+
+      },
+
     
 
     logout:(req,res)=>{
 
         req.session.admin = false
         req.session.admindata = null
+       
         res.redirect('/admin/login')
     }
 }

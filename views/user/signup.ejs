@@ -151,10 +151,9 @@
     
     
 
-    let uname = document.getElementById('uname').value
-    document.getElementById('uname').value = uname.trim()
+    
 
-    if(!uname.match(/^[a-zA-Z]+$/))
+    if(!uname.match(/^[a-zA-Z\s]+$/))
   {
            document.getElementById("err").style.display = "block"
   }
@@ -256,6 +255,11 @@
    }
 
    //submit button
+
+   document.getElementById('btn').onmouseover = ()=>{
+    let uname = document.getElementById('uname').value
+    document.getElementById('uname').value = uname.trim()
+   }
    document.getElementById('btn').onclick = ()=>{
 
     if(berr)

@@ -61,6 +61,9 @@ router.get('/attendeesgrid/:id',adminAuth.adminAuthentication,adminController.at
 /* GET removeattendance. */
 router.get('/removeattendance/:id',adminAuth.adminAuthentication,adminController.removeattendance)
 
+/* GET markcheckin. */
+router.get('/markcheckin/:id',adminAuth.adminAuthentication,adminController.markcheckin)
+
 
 
 

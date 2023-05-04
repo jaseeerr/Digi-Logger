@@ -3,6 +3,7 @@ const Admin = require('../model/adminSchema')
 const Attendance = require('../model/attendanceSchema')
 const bcrypt = require('bcrypt')
 const SU = require('../model/superuserSchema')
+const Regularize = require('../model/reqularizeSchema')
 
 
 module.exports = {
@@ -204,7 +205,7 @@ module.exports = {
                   return true;
                 }
                 
-                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0, 0); // set time to today 9:00 AM
+                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 30, 0, 0); // set time to today 9:00 AM
                 if(date.getTime() < today9AM.getTime())
                 {
                     return true
@@ -299,7 +300,7 @@ module.exports = {
 
               
                 // Set the current date time to 9:30 AM
-                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 9, 0);
+                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 10, 30,0);
 
                 console.log("selected date:  "+currentDateTime);
                 console.log("incoming:  "+date);
@@ -475,7 +476,7 @@ module.exports = {
 
               
                 // Set the current date time to 9:30 AM
-                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 9, 0);
+                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 10, 30, 0);
 
                 console.log("selected date:  "+currentDateTime);
                 console.log("incoming:  "+date);
@@ -650,5 +651,69 @@ module.exports = {
        
 
        })
+    },
+
+
+    markchekcin:(id,admin,stdphone,adminphone,stdname)=>{
+
+        let now = new Date()
+
+        return new Promise((resolve, reject) => {
+        
+            const reg = new Regularize({
+        
+                        
+                student:stdname,
+                stdphone:stdphone,
+                admin:admin,
+                adminphone:adminphone,
+                date:now,
+                type:"Check-in"
+                
+
+            })
+
+            reg.save().then(()=>{
+
+                console.log("HERHEHREREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+                Attendance.findOne({sid:id}).then((data)=>{
+
+                    let now1 = new Date()
+                    now1.setHours(8,55,0)
+
+
+                    let checkin1 = data.checkin
+
+                    if(checkin1.length===0)
+                    {
+                        checkin1[0] = now1
+                    }
+                    else
+                    {
+                        checkin1[checkin1.length-1] = now1
+                  
+                    }
+
+                    Attendance.findByIdAndUpdate(data._id,{
+                        $set:{
+                            checkin:checkin1
+                        }
+                    }).then(()=>{
+
+                        resolve()
+                    })
+
+                    
+
+
+                })
+
+
+               
+            })
+
+            
+
+        })
     }
 }
