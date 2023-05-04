@@ -70,13 +70,9 @@
                               <a href="#">
 
                                 
-<% if (element.index==-1) { %>
-    <img class="default-img" src="/stylesheets/assets-backend/imgs/BadCheckinImg.jpg" alt="">
-    <% } else { %>
-        <img class="default-img" src="/images/attendees/checkout/<%=element.checkinImg[element.index1] %>" alt="">
-<% } %>
-                                  <img class="default-img" src="/stylesheets/assets-backend/imgs/BadCheckinImg.jpg" alt="">
-                                  <img class="hover-img" src="/images/attendees/checkout/<%=element.checkoutImg[element.index1] %>" alt="">
+                                <img class="default-img" src="/images/attendees/checkin/<%=element.checkinImg[element.index] %>" alt="">
+                          
+                                <img class="hover-img" src="/images/attendees/checkout/<%=element.checkoutImg[element.index1] %>" alt="">
 
 
                               </a>
