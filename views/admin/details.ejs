@@ -10,9 +10,7 @@
             <h2 class="content-title card-title text-center"><%=user.name %> || <%=user.batch %> || <%=user.domain %> </h2>
             <p>Whole data about attendance here</p>
             <a href="/admin/markcheckin/<%=user._id %>" class="btn-primary" style="padding: 2%;border-radius: 5px;">Regularize Check-in</a> <br> <br>
-            <% if (badstd) { %>
-             <p><%=user.name %> haven't checked in yet. We can only regularize his log if he is already check-in today.</p>
-            <% } %>
+          
             <a href="#" class="btn-primary" style="padding: 2%;border-radius: 5px;">Regularize Check-out</a>
         </div>
         <div>
@@ -150,9 +148,22 @@
                
 </section>
 
+<% if (badstd) { %>
+    <div class="alert alert-success text-center" style="position:fixed;top:300px;left:650px;" role="alert" id="alert">
+        New item added to cart!
+      </div>
+<% } %>
 
-
-
+<script>
+    function hideDiv() {
+    document.getElementById('alert').style.display = 'none';
+    }
+    setTimeout(hideDiv, 10000); // Hide the div after 3 seconds (3000 milliseconds)
+        document.getElementById('cartbtn').onclick = 
+        ()=> {
+            document.getElementById('submitbtn').click()
+        }
+    </script>
 
   <%- include('../partials/footer') %>
 
