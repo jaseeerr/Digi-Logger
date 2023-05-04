@@ -530,7 +530,7 @@ module.exports = {
                 {
                     let temp = new Date()
                     let time = new Date();
-                    time.setHours(10, 30, 0, 0);
+                    time.setHours(9, 10, 0);
                     let time1 = arr[i]
                     let month = time1.getMonth()
                     let month1 = temp.getMonth()
@@ -584,11 +584,11 @@ module.exports = {
                  arr4.forEach(element => {
 
                     let time = new Date();
-                    time.setHours(10, 30, 0, 0);
+                    time.setHours(9,10,0);
 
                     let current = new Date(element)
 
-                    if(current.getTime()>current.getTime())
+                    if(current.getTime()<current.getTime())
                     {
                        
                     let temp = new Date(element)
@@ -668,25 +668,7 @@ module.exports = {
                
 
 
-                //  for(let i=0;i<arr4.length;i++)
-                //  {
-                    
-                //     let counter = 0
-                //     for(let j=0;j<arr4.length;j++)
-                //     {
-                //         let temp = new Date(arr2[j])
-                //     temp = temp.getMonth()
-                //     console.log("temp: ",temp,"\ni: ",i,"\nj: ",j);
-                 
-                //         if(i==temp)
-                //         {
-                //             counter++
-                //         }
-                       
-                //     }
-
-                //     overall[i] = counter
-                //  }
+               
                       
 
               let present = 0

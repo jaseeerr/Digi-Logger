@@ -205,7 +205,7 @@ module.exports = {
                   return true;
                 }
                 
-                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 30, 0, 0); // set time to today 9:00 AM
+                const today9AM = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 10, 0, 0); // set time to today 9:00 AM
                 if(date.getTime() < today9AM.getTime())
                 {
                     return true
@@ -300,7 +300,7 @@ module.exports = {
 
               
                 // Set the current date time to 9:30 AM
-                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 10, 30,0);
+                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 9, 10,0);
 
                 console.log("selected date:  "+currentDateTime);
                 console.log("incoming:  "+date);
@@ -476,7 +476,7 @@ module.exports = {
 
               
                 // Set the current date time to 9:30 AM
-                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 10, 30, 0);
+                const currentDateTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 9, 10, 0);
 
                 console.log("selected date:  "+currentDateTime);
                 console.log("incoming:  "+date);
