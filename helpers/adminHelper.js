@@ -679,7 +679,7 @@ module.exports = {
                 Attendance.findOne({sid:id}).then((data)=>{
 
                     let now1 = new Date()
-                    now1.setHours(8,55,0)
+                    now1.setHours(3,25,0)
 
 
                     let checkin1 = data.checkin
