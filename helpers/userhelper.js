@@ -530,7 +530,7 @@ module.exports = {
                 {
                     let temp = new Date()
                     let time = new Date();
-                    time.setHours(9, 10, 0);
+                    time.setHours(3, 40, 0);
                     let time1 = arr[i]
 
                     console.log("incoming date: ",time1)
@@ -586,7 +586,7 @@ module.exports = {
                  arr4.forEach(element => {
 
                     let time = new Date();
-                    time.setHours(9,10,0);
+                    time.setHours(3,40,0);
 
                     let current = new Date(element)
 
