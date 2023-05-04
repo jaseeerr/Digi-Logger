@@ -583,6 +583,14 @@ module.exports = {
 
                  arr4.forEach(element => {
 
+                    let time = new Date();
+                    time.setHours(10, 30, 0, 0);
+
+                    let current = new Date(element)
+
+                    if(current.getTime()>current.getTime())
+                    {
+                       
                     let temp = new Date(element)
                     temp = temp.getMonth()
                     if(temp===0)
@@ -633,6 +641,9 @@ module.exports = {
                     {
                         dec.push(element)
                     }
+                    }
+                    
+
                     
                  });
 
