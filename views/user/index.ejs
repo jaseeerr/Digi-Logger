@@ -53,7 +53,7 @@
 <% if (!userdata.dev1 && !userdata.dev2) { %>
  <!--  -->
 <div class="overlay" style="background-color: rgba(0, 0, 0, 0.36);"></div>
-<div class="center">
+<div class="center" id="info-link" style="display: none;">
   <center><h5>YOU HAVEN'T LINKED YOUR DEVICES YET!</h5></center> 
   <br>
    <h6>Link your phone and laptop to your account, you will only be able to check-in from these linked
@@ -72,7 +72,7 @@
 <% if (userdata.dev1 && !userdata.dev2) { %>
     <!--  -->
    <div class="overlay" style="background-color: rgba(0, 0, 0, 0.36);"></div>
-   <div class="center" >
+   <div class="center" id="info-link" style="display: none;">
 
     <% if (thisfp==userdata.dev1) { %>
       <center><h5>THIS DEVICE IS SUCCESSFULLY LINKED TO YOUR ACCOUNT</h5></center> 
@@ -418,6 +418,32 @@
   window.addEventListener('load', function() {
     document.getElementById('myDiv').style.display = 'block';
   });
+</script>
+
+<script>
+
+function showDiv() {
+
+  console.log("SHOWDIV");
+
+  if (document.getElementById("info-link") !== null) {
+
+  // Code to execute if element exists
+  setTimeout(function() {
+    document.getElementById("info-link").style.display = "block";
+  }, 5000); 
+
+  
+} else {
+  // Code to execute if element does not exist
+  console.log("Element not found!");
+}
+
+ 
+
+}
+
+document.addEventListener("DOMContentLoaded", showDiv);
 </script>
       
 

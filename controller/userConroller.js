@@ -32,15 +32,15 @@ module.exports = {
      
       let ip = req.session.ip
 
-        let userdata = req.session.userdata
+        let userdata1 = req.session.userdata
         let signedin = req.session.signedin
        
 
 
 
-      console.log(userdata);
+      console.log(userdata1);
        
-
+         userHelper.getUser(userdata1._id).then((userdata)=>{
 
           userHelper.graphdata(userdata._id).then((graphdata)=>{
 
@@ -56,6 +56,10 @@ module.exports = {
 
           })
 
+
+         })
+
+         
            
           
 
