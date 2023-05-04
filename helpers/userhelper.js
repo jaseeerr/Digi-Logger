@@ -532,6 +532,8 @@ module.exports = {
                     let time = new Date();
                     time.setHours(9, 10, 0);
                     let time1 = arr[i]
+
+                    console.log("incoming date: ",time1)
                     let month = time1.getMonth()
                     let month1 = temp.getMonth()
 
