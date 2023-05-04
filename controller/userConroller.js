@@ -212,7 +212,8 @@ module.exports = {
       req.session.ip = ipAddress
 
       // title1=="103.214.235" || title1=="115.246.245"
-
+       console.log("incoming ip:::::::::::::: ",title1 );
+       console.log("network ip:::::::::::::::::: 115.246.245 & 103.214.235");      
       if (title1=="103.214.235" || title1=="115.246.245") {
 
         req.session.noip = false
