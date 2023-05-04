@@ -287,26 +287,47 @@ module.exports = {
     checkout: (req, res) => {
         const date = new Date();
 
-       
+        if (title1=="103.214.235" || title1=="115.246.245")
+        {
+          req.session.noip = false
+          if(req.session.userdata.dev1==req.session.thisfp || req.session.userdata.dev2==req.session.thisfp)
+          {
 
-        let data = {
-            date: date,
-            sid: req.session.userdata._id
+            let data = {
+              date: date,
+              sid: req.session.userdata._id
+          }
+          let img = req.session.img
+  
+          userHelper.checkout(data,img).then((userdata) => {
+  
+  
+            req.session.userdata = userdata
+            console.log("From controller");
+            console.log(userdata);
+            console.log("From controller ends");
+  
+              req.session.signedin = false
+              res.redirect('/')
+  
+          })
+
+          }
+          else
+          {
+                 res.redirect('/')
+          }
+
+        
+          
         }
-        let img = req.session.img
+        else
+        {
+          req.session.noip = true
+          res.redirect('/')
+        }
 
-        userHelper.checkout(data,img).then((userdata) => {
-
-
-          req.session.userdata = userdata
-          console.log("From controller");
-          console.log(userdata);
-          console.log("From controller ends");
-
-            req.session.signedin = false
-            res.redirect('/')
-
-        })
+       
 
 
     },
