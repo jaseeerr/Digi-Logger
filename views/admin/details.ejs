@@ -10,6 +10,9 @@
             <h2 class="content-title card-title text-center"><%=user.name %> || <%=user.batch %> || <%=user.domain %> </h2>
             <p>Whole data about attendance here</p>
             <a href="/admin/markcheckin/<%=user._id %>" class="btn-primary" style="padding: 2%;border-radius: 5px;">Regularize Check-in</a> <br> <br>
+            <% if (badstd) { %>
+             <p><%=user.name %> haven't checked in yet. We can only regularize his log if he is already check-in today.</p>
+            <% } %>
             <a href="#" class="btn-primary" style="padding: 2%;border-radius: 5px;">Regularize Check-out</a>
         </div>
         <div>

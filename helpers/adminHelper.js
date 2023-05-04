@@ -678,30 +678,46 @@ module.exports = {
                 console.log("HERHEHREREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
                 Attendance.findOne({sid:id}).then((data)=>{
 
+                    
+
                     let now1 = new Date()
                     now1.setHours(3,25,0)
 
+                    let current = data.checkin[data.checkin.length-1]
+                    let current1 = new Date(current)
 
-                    let checkin1 = data.checkin
-
-                    if(checkin1.length===0)
+                    if(now1.getDate()===current1.getDate() && now1.getMonth()===current1.getMonth() && now1.getFullYear()===current1.getFullYear())
                     {
-                        checkin1[0] = now1
+                        let checkin1 = data.checkin
+
+                        if(checkin1.length===0)
+                        {
+                            checkin1[0] = now1
+                        }
+                        else
+                        {
+                            checkin1[checkin1.length-1] = now1
+                      
+                        }
+    
+                        Attendance.findByIdAndUpdate(data._id,{
+                            $set:{
+                                checkin:checkin1
+                            }
+                        }).then(()=>{
+     
+                            let badstd = false
+                            resolve(badstd)
+                        })
                     }
                     else
                     {
-                        checkin1[checkin1.length-1] = now1
-                  
+                        let badstd = true
+                        resolve(badstd)
                     }
 
-                    Attendance.findByIdAndUpdate(data._id,{
-                        $set:{
-                            checkin:checkin1
-                        }
-                    }).then(()=>{
 
-                        resolve()
-                    })
+                   
 
                     
 

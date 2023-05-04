@@ -247,6 +247,8 @@ res.redirect('/admin')
         let id = req.params.id
         console.log(id);
        
+        let badstd = req.session.badstd
+        req.session.badstd = false
 
 
 
@@ -270,7 +272,7 @@ res.redirect('/admin')
                     let absent = graphdata.absent
                     req.session.stdPhone = user.phone
                     req.session.stdname = user.name
-                    res.render('admin/details', {userdata, percentage, absent,daily,overall,user});
+                    res.render('admin/details', {userdata, percentage, absent,daily,overall,user,badstd});
 
                
  
@@ -483,7 +485,12 @@ res.redirect('/admin')
 
         const previousUrl = req.header('Referer');
 
-        adminHelper.markchekcin(id,admin,stdphone,adminphone,stdname).then(()=>{
+        adminHelper.markchekcin(id,admin,stdphone,adminphone,stdname).then((badstd)=>{
+
+            if(badstd)
+            {
+                req.session.badstd = true
+            }
 
             res.redirect(previousUrl)
 
