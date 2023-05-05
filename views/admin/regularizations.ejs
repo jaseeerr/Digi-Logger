@@ -75,8 +75,10 @@
     
         <tr>
          
-            
-            <td class="text-center"><b><%=element.date%></b></td>
+            <% let x = element.date %>
+            <% x = x.subString(0,10) %>
+            <td class="text-center"><b><%=x%></b></td>
+
             <td class="text-center"><b><%=element.student %></b></td>
             <td class="text-center"><b><%=element.stdphone %></b></td>
             <td class="text-center"><b><%=element.admin %></b></td>
