@@ -9,6 +9,12 @@ const suAuth = require('../auth/superuser')
 /* GET home. */
 router.get('/',adminAuth.adminAuthentication,adminController.home)
 
+/* GET frequent absentees. */
+router.get('/frequentabsenteespdf',adminAuth.adminAuthentication,adminController.frequentabsenteespdf)
+
+/* GET today's absentees. */
+router.get('/todaysabsenteespdf',adminAuth.adminAuthentication,adminController.todaysabsenteespdf)
+
 /* GET custom details. */
 router.get('/customreport',adminAuth.adminAuthentication,adminController.customreport)
 
@@ -63,6 +69,15 @@ router.get('/removeattendance/:id',adminAuth.adminAuthentication,adminController
 
 /* GET markcheckin. */
 router.get('/markcheckin/:id',adminAuth.adminAuthentication,adminController.markcheckin)
+
+/* GET markcheckout. */
+router.get('/markcheckout/:id',adminAuth.adminAuthentication,adminController.markcheckout)
+
+/* VIEW regularization logs. */
+router.get('/regularizations',adminAuth.adminAuthentication,adminController.regularizations)
+
+/* GET regularization logs. */
+router.post('/getregularizations',adminAuth.adminAuthentication,adminController.getregularizations)
 
 
 

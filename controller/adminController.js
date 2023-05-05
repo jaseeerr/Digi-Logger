@@ -11,8 +11,11 @@ module.exports = {
       
 
          adminHelper.getAbsentees().then((data)=>{
+             req.session.freqabsentees = data
 
             adminHelper.getTodayabsent().then((todays)=>{
+
+                req.session.todaysabsentees = todays
 
                 req.session.todays = todays
                 let temp = []
@@ -33,6 +36,20 @@ module.exports = {
 
         })
         
+    },
+
+    frequentabsenteespdf:(req,res)=>{
+
+        let data = req.session.freqabsentees
+
+        res.render('admin/frequentabsenteespdf',{data})
+    },
+
+    todaysabsenteespdf:(req,res)=>{
+
+        let data = req.session.todaysabsentees
+
+        res.render('admin/frequentabsenteespdf',{data})
     },
 
     login:(req,res)=>{
@@ -503,6 +520,61 @@ res.redirect('/admin')
         
 
       },
+
+      markcheckout:(req,res)=>{
+
+        let id = req.params.id
+        let admin = req.session.admindata.name
+        let stdphone =  req.session.stdPhone
+        let adminphone = req.session.admindata.phone
+        let stdname =  req.session.stdname
+
+        const previousUrl = req.header('Referer');
+
+        adminHelper.markchekcout(id,admin,stdphone,adminphone,stdname).then((badstd)=>{
+
+            if(badstd)
+            {
+                req.session.badstd = true
+            }
+
+            res.redirect(previousUrl)
+
+
+        })
+
+        
+
+
+        
+
+      },
+
+
+      regularizations:(req,res)=>{
+
+            let data = req.session.reglogs
+            let date = req.session.of3
+
+            res.render('admin/regularization',{data,date})
+      
+      },
+
+      getregularizations:(req,res)=>{
+
+        let id = req.params.id
+        req.session.of3 = id
+
+        adminHelper.getregularizationlogs(id).then((data)=>{
+
+            req.session.reglogs = data
+         
+            res.redirect('/admin/regularizations')
+        })
+      },
+
+
+
 
     
 

@@ -731,5 +731,106 @@ module.exports = {
             
 
         })
+    },
+
+    markchekcout:(id,admin,stdphone,adminphone,stdname)=>{
+
+        let now = new Date()
+
+        return new Promise((resolve, reject) => {
+        
+            const reg = new Regularize({
+        
+                        
+                student:stdname,
+                stdphone:stdphone,
+                admin:admin,
+                adminphone:adminphone,
+                date:now,
+                type:"Check-out"
+                
+
+            })
+
+            reg.save().then(()=>{
+
+                console.log("HERHEHREREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+                Attendance.findOne({sid:id}).then((data)=>{
+
+                    
+
+                    let now1 = new Date()
+                    now1.setHours(12,20,0)
+
+                    let current = data.checkin[data.checkin.length-1]
+                    let current1 = new Date(current)
+
+                    if(now1.getDate()===current1.getDate() && now1.getMonth()===current1.getMonth() && now1.getFullYear()===current1.getFullYear())
+                    {
+                        let checkout1 = data.checkout
+
+                        if(checkout1.length===0)
+                        {
+                            checkout1[0] = now1
+                        }
+                        else
+                        {
+                            checkout1[checkout1.length] = now1
+                      
+                        }
+    
+                        Attendance.findByIdAndUpdate(data._id,{
+                            $set:{
+                                checkout:checkout1
+                            }
+                        }).then(()=>{
+
+                            User.findByIdAndUpdate(id,{
+                                $set:{
+                                    checkin:false
+                                }
+                            }).then(()=>{
+
+                                
+                            let badstd = false
+                            resolve(badstd)
+
+                            })
+     
+                        })
+                    }
+                    else
+                    {
+                        let badstd = true
+                        resolve(badstd)
+                    }
+
+
+                   
+
+                    
+
+
+                })
+
+
+               
+            })
+
+            
+
+        })
+    },
+
+    getregularizationlogs:()=>{
+
+        return new Promise((resolve, reject) => {
+            
+            Regularize.find({}).then((data)=>{
+
+                resolve(data)
+
+            })
+        })
     }
 }

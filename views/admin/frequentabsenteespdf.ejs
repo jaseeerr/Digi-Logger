@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
-<style>
+  
+    <style>
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -21,9 +22,12 @@ td, th {
 </head>
 <body>
 <center>
+  <% let date = new Date() %>
+  <% date = "0" +date.getMonth()+"-"+date.getFullYear()  %>
   <input type="hidden" id="batch" value="<%=data[0].batch %>">
-    <h5>Absentees of <%=date %></h5>
-    <input type="hidden" id="report-date" value="<%=date %>">
+    <h5>Attendees of <%=date %></h5>
+ 
+   
      
         <table id="printTable">
            <tr>
@@ -52,14 +56,24 @@ td, th {
 
 
 </center>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#printTable').DataTable();
+  });
+</script>
+
+
 
 <script>
 
-let x = document.getElementById('report-date').value
+let x = new Date()
+x =  "-0" + x.getMonth() +"-"+ x.getFullYear()
 let batch = document.getElementById('batch').value
 
 
@@ -69,7 +83,7 @@ function print(){
 var elementHTML = document.querySelector("#printTable");
 docPDF.html(elementHTML, {
  callback: function(docPDF) {
-  docPDF.save( `Absentees of ${x}_${batch}.pdf`);
+  docPDF.save( `Frequent Absentees of ${x} - all batches.pdf`);
  },
  x: 15,
  y: 15,
@@ -81,18 +95,16 @@ docPDF.html(elementHTML, {
 
 
 <script>
-
-
-
-
     function ExportToExcel(type, fn, dl) {
        var elt = document.getElementById('printTable');
        var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
        return dl ?
          XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
-         XLSX.writeFile(wb, fn || (`Absentees of ${x}_${batch}.` + (type || 'xlsx')));
+         XLSX.writeFile(wb, fn || (`Frequent Absentees of ${x} - all batches.pdf` + (type || 'xlsx')));
     }
 </script>
+
+
 </body>
 </html>
 

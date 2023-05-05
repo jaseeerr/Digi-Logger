@@ -23,7 +23,7 @@ td, th {
 <center>
   <input type="hidden" id="batch" value="<%=data[0].batch %>">
     <h5>Attendees of <%=date %></h5>
-  
+    <input type="hidden" id="report-date" value="<%=date %>">
      
         <table id="printTable">
            <tr>
@@ -59,8 +59,8 @@ td, th {
 
 <script>
 
-let x = new Date()
-x = "0"+x.getDate() + "-0" + x.getMonth() +"-"+ x.getFullYear()
+let x = document.getElementById('report-date').value
+
 let batch = document.getElementById('batch').value
 
 
@@ -87,7 +87,7 @@ docPDF.html(elementHTML, {
        var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
        return dl ?
          XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
-         XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+         XLSX.writeFile(wb, fn || (`Attendance of ${x}_${batch}` + (type || 'xlsx')));
     }
 </script>
 </body>
