@@ -556,7 +556,7 @@ res.redirect('/admin')
             let data = req.session.reglogs
             let date = req.session.of3
 
-            res.render('admin/regularization',{data,date})
+            res.render('admin/regularizations',{data,date})
       
       },
 
