@@ -35,7 +35,7 @@ module.exports = {
          userHelper.getUser(userdata1._id).then((userdata)=>{
 
           
-      if(req.session.userdata.checkin)
+      if(userdata.checkin)
       {
         req.session.signedin = true
       }
