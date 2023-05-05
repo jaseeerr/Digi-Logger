@@ -761,6 +761,8 @@ module.exports = {
 
                     let now1 = new Date()
                     now1.setHours(12,20,0)
+                    console.log("TIMEEEEEEEEECHHHHEEEEEEEEEECCCCKKKKKKKKKK");
+                    console.log(now1);
 
                     let current = data.checkin[data.checkin.length-1]
                     let current1 = new Date(current)
