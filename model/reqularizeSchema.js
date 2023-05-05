@@ -7,7 +7,8 @@ const regularizeSchema = new Schema({
     admin:String,
     adminphone:Number,
     type:String,
-    date:Date
+    date:Date,
+    reason:String
 
     
     

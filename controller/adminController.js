@@ -500,10 +500,11 @@ res.redirect('/admin')
         let stdphone =  req.session.stdPhone
         let adminphone = req.session.admindata.phone
         let stdname =  req.session.stdname
+        let reason  = req.body.reason
 
         const previousUrl = req.header('Referer');
 
-        adminHelper.markchekcin(id,admin,stdphone,adminphone,stdname).then((badstd)=>{
+        adminHelper.markchekcin(id,admin,stdphone,adminphone,stdname,reason).then((badstd)=>{
 
             if(badstd)
             {
@@ -529,10 +530,11 @@ res.redirect('/admin')
         let stdphone =  req.session.stdPhone
         let adminphone = req.session.admindata.phone
         let stdname =  req.session.stdname
+        let reason  = req.body.reason
 
         const previousUrl = req.header('Referer');
 
-        adminHelper.markchekcout(id,admin,stdphone,adminphone,stdname).then((badstd)=>{
+        adminHelper.markcheckout(id,admin,stdphone,adminphone,stdname,reason).then((badstd)=>{
 
             if(badstd)
             {

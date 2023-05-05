@@ -68,10 +68,10 @@ router.get('/attendeesgrid/:id',adminAuth.adminAuthentication,adminController.at
 router.get('/removeattendance/:id',adminAuth.adminAuthentication,adminController.removeattendance)
 
 /* GET markcheckin. */
-router.get('/markcheckin/:id',adminAuth.adminAuthentication,adminController.markcheckin)
+router.post('/markcheckin/:id',adminAuth.adminAuthentication,adminController.markcheckin)
 
 /* GET markcheckout. */
-router.get('/markcheckout/:id',adminAuth.adminAuthentication,adminController.markcheckout)
+router.post('/markcheckout/:id',adminAuth.adminAuthentication,adminController.markcheckout)
 
 /* VIEW regularization logs. */
 router.get('/regularizations',adminAuth.adminAuthentication,adminController.regularizations)

@@ -568,15 +568,17 @@ module.exports = {
         
         Attendance.findOne({sid:id}).then((data)=>{
 
-            let checkin1 = data.checkin
-            let checkout1 = data.checkout
-            checkin1.pop()
+            let checkin1 = data?.checkin
+            let checkout1 = data?.checkout
+         
             let lastin = checkin1[checkin1.length-1]
             let lastout = checkout1[checkout1.length-1]
 
+            checkin1.pop()
+
             if(lastin.getDate() === lastout.getDate() && lastin.getMonth()===lastout.getMonth() && lastin.getFullYear()===lastout.getFullYear() )
             {
-                checkout.pop()
+                checkout1.pop()
             }
 
 
@@ -654,7 +656,7 @@ module.exports = {
     },
 
 
-    markchekcin:(id,admin,stdphone,adminphone,stdname)=>{
+    markchekcin:(id,admin,stdphone,adminphone,stdname,reason)=>{
 
         let now = new Date()
 
@@ -668,6 +670,7 @@ module.exports = {
                 admin:admin,
                 adminphone:adminphone,
                 date:now,
+                reason:reason,
                 type:"Check-in"
                 
 
@@ -733,7 +736,7 @@ module.exports = {
         })
     },
 
-    markchekcout:(id,admin,stdphone,adminphone,stdname)=>{
+    markcheckout:(id,admin,stdphone,adminphone,stdname,reason)=>{
 
         let now = new Date()
 
@@ -747,6 +750,7 @@ module.exports = {
                 admin:admin,
                 adminphone:adminphone,
                 date:now,
+                reason:reason,
                 type:"Check-out"
                 
 
