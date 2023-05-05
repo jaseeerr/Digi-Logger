@@ -485,6 +485,7 @@ res.redirect('/admin')
         adminHelper.removeattendance(req.params.id).then((userdata)=>{
   
           req.session.attendanceremoved = true
+         
 
           res.redirect(previousUrl)
 

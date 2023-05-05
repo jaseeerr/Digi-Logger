@@ -17,14 +17,6 @@ module.exports = {
       req.session.inout = false
 
 
-      if(req.session.userdata.checkin)
-      {
-        req.session.signedin = true
-      }
-      else
-      {
-        req.session.signedin = false
-      }
 
       
 
@@ -41,6 +33,16 @@ module.exports = {
       console.log(userdata1);
        
          userHelper.getUser(userdata1._id).then((userdata)=>{
+
+          
+      if(req.session.userdata.checkin)
+      {
+        req.session.signedin = true
+      }
+      else
+      {
+        req.session.signedin = false
+      }
 
           userHelper.graphdata(userdata._id).then((graphdata)=>{
 
@@ -197,6 +199,12 @@ module.exports = {
     checkin: (req, res) => {
 
 
+      if(req.session.signedin)
+      {
+           res.redirect('/')
+      }
+
+
      
 
 
@@ -289,6 +297,16 @@ module.exports = {
     },
 
     checkout: (req, res) => {
+
+
+
+      if(!req.session.signedin)
+      {
+           res.redirect('/')
+      }
+
+
+
         const date = new Date();
 
         const ipAddress = req.headers['x-forwarded-for'] || req.socket.remoteAddress;

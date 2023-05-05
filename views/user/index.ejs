@@ -305,7 +305,23 @@
     const myButton = document.getElementById('capture-button');
 
     console.log(checkin);
-        myButton.click();
+
+    async function checkFrontCamera() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
+    // console.log("Front camera is available");
+    myButton.click();
+    // Do something if the front camera is available
+  } catch (error) {
+    window.alert("CAMERA NOT FOUND")
+    location.href = "/"
+    console.log("Front camera is not available");
+    // Do something if the front camera is not available
+  }
+}
+
+checkFrontCamera();
+        
   }
 
       
