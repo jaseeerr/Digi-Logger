@@ -834,20 +834,10 @@ module.exports = {
             
             Regularize.find({}).then((data)=>{
 
-                let data1 = []
+             
 
-                data.forEach(element => {
-
-                    let current = new Date(element.date)
-                    let date1 = new Date(date)
-
-                    if(current.getDate()===date1.getDate() && current.getMonth()===date1.getMonth() && current.getFullYear()===date1.getFullYear())
-                    {
-                          data1.push(element)
-                    }
-                    
-                });
-                resolve(data1)
+              
+                resolve(data)
 
             })
         })
