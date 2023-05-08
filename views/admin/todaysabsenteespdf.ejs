@@ -25,7 +25,7 @@ td, th {
   <% let date = new Date() %>
   <% date = "0" +date.getMonth()+"-"+date.getFullYear()  %>
   <input type="hidden" id="batch" value="<%=data[0].batch %>">
-    <h5>Attendees of <%=date %></h5>
+    <h5>Absentees of <%=date %></h5>
  
    
      
@@ -83,7 +83,7 @@ function print(){
 var elementHTML = document.querySelector("#printTable");
 docPDF.html(elementHTML, {
  callback: function(docPDF) {
-  docPDF.save( `Today's Absentees of ${x} - all batches.pdf`);
+  docPDF.save( `Absentees of ${x} - all batches.pdf`);
  },
  x: 15,
  y: 15,
